@@ -1,0 +1,38 @@
+# Environnement
+
+.venv/
+venv/
+.env
+
+# Python
+
+pycache/
+*.pyc
+
+# Jupyter
+
+.ipynb_checkpoints/
+
+# Résultats
+
+results/
+*.png
+*.jpg
+*.jpeg
+
+# Logs
+
+*.log
+*.out
+*.err
+
+# OS
+
+.DS_Store
+desktop.ini
+
+# Secrets
+
+*key*.txt
+*secret*.txt
+*clés*.txt
