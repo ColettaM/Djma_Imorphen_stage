@@ -44,7 +44,7 @@ Djma_internship/
 ├── notebooks/ : exploration et tests
 ├── tests/     : tests unitaires
 ├── docs/      : documentation
-├── data/      : données (non versionnées)
+├── data/      : données (raw, données brutes et processed, données transformées)
 ├── results/   : sorties (images, métriques)
 ├── ...
 └── README.md
