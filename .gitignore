@@ -20,6 +20,10 @@ results/
 *.jpg
 *.jpeg
 
+# Docs
+
+docs/rapport_avancement/*.pdf
+
 # Logs
 
 *.log
