@@ -1,0 +1,6 @@
+outs:
+- md5: eb0edc10ee051df1c751ee6b49e38ea3.dir
+  size: 189725253
+  nfiles: 12
+  hash: md5
+  path: classification_tomato_exp1

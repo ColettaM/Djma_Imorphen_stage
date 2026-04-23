@@ -1,0 +1,6 @@
+outs:
+- md5: d209a55a62047faaf492e7c0a8358fe6.dir
+  size: 2711
+  nfiles: 1
+  hash: md5
+  path: segmentation_tomato
