@@ -73,17 +73,17 @@ class PipelineConfig:
     """Paramètres globaux du pipeline."""
 
     data_dir: Path
-    threshold: int = 1000  # seuil split 70/15/15 vs 50/25/25
-    max_per_class: int = 2000  # cap pour le downsampling du train
-    aug_threshold: int = 800  # classes à augmenter si train < aug_threshold
-    aug_target: int = 800  # effectif train cible après augmentation
+    threshold: int = 1000          # seuil split 70/15/15 vs 50/25/25
+    max_per_class: int = 2000      # cap pour le downsampling du train
+    aug_threshold: int = 800       # classes à augmenter si train < aug_threshold
+    aug_target: int = 800          # effectif train cible après augmentation
     random_state: int = 42
-
+      
     # Détection fond noir
-    black_bg_border_fraction: float = 0.1  # 10% de bordure analysée
-    black_bg_dark_threshold: int = 30  # pixel sombre si max(R,G,B) < 30
-    black_bg_dark_ratio: float = 0.85  # 85% de bordure sombre = fond noir
-    black_bg_dirname: str = "black_background_removed"
+    black_bg_border_fraction: float = 0.1    # 10% de bordure analysée
+    black_bg_dark_threshold: int = 30        # pixel sombre si max(R,G,B) < 30
+    black_bg_dark_ratio: float = 0.85        # 85% de bordure sombre = fond noir
+    black_bg_dirname: str = "black_background_removed" 
 
     extract_dirname: str = "extracted"
     merged_dirname: str = "tomato_only"
@@ -110,16 +110,13 @@ class PipelineConfig:
 # Étape 1 : extraction des zips
 # ──────────────────────────────────────────────────────────────────────────────
 
-
 def extract_zips(cfg: PipelineConfig) -> None:
     """Dézippe tous les .zip présents dans data_dir vers extract_dir/<nom_zip>/."""
     cfg.extract_dir.mkdir(parents=True, exist_ok=True)
 
     zips = [f for f in cfg.data_dir.iterdir() if f.suffix.lower() == ".zip"]
     if not zips:
-        log.warning(
-            "Aucun .zip trouvé dans %s — on suppose déjà extrait.", cfg.data_dir
-        )
+        log.warning("Aucun .zip trouvé dans %s — on suppose déjà extrait.", cfg.data_dir)
         return
 
     for zpath in zips:
@@ -136,7 +133,6 @@ def extract_zips(cfg: PipelineConfig) -> None:
 # ──────────────────────────────────────────────────────────────────────────────
 # Étape 2 : normalisation + fusion inter-datasets
 # ──────────────────────────────────────────────────────────────────────────────
-
 
 def normalize_class_name(folder_name: str) -> Optional[str]:
     """
@@ -236,11 +232,8 @@ def merge_datasets(cfg: PipelineConfig) -> None:
                     shutil.copy2(src, class_out / new_name)
                     total_copied += 1
 
-    log.info(
-        "Copie terminée : %d fichiers, %d conflits résolus",
-        total_copied,
-        total_conflicts,
-    )
+    log.info("Copie terminée : %d fichiers, %d conflits résolus",
+             total_copied, total_conflicts)
 
     _merge_redundant_classes(cfg)
 
@@ -279,7 +272,6 @@ def _merge_redundant_classes(cfg: PipelineConfig) -> None:
 # ──────────────────────────────────────────────────────────────────────────────
 # Étape 3 : nettoyage (corrompues + doublons)
 # ──────────────────────────────────────────────────────────────────────────────
-
 
 def remove_corrupted_images(cfg: PipelineConfig) -> int:
     """Vérifie chaque image et supprime celles qui sont illisibles."""
@@ -343,11 +335,9 @@ def remove_exact_duplicates(cfg: PipelineConfig) -> int:
     log.info("Doublons exacts supprimés : %d", removed)
     return removed
 
-
 # ──────────────────────────────────────────────────────────────────────────────
 # Étape 4: détection et déplacement des images à fond noir
 # ──────────────────────────────────────────────────────────────────────────────
-
 
 def _has_black_background(
     image_path: Path,
@@ -369,14 +359,12 @@ def _has_black_background(
     h, w = arr.shape[:2]
     bw = max(1, int(min(h, w) * border_fraction))
 
-    borders = np.concatenate(
-        [
-            arr[:bw, :, :].reshape(-1, 3),
-            arr[-bw:, :, :].reshape(-1, 3),
-            arr[:, :bw, :].reshape(-1, 3),
-            arr[:, -bw:, :].reshape(-1, 3),
-        ]
-    )
+    borders = np.concatenate([
+        arr[:bw, :, :].reshape(-1, 3),
+        arr[-bw:, :, :].reshape(-1, 3),
+        arr[:, :bw, :].reshape(-1, 3),
+        arr[:, -bw:, :].reshape(-1, 3),
+    ])
     dark_mask = borders.max(axis=1) < dark_threshold
     return dark_mask.mean() >= dark_ratio_threshold
 
@@ -440,11 +428,9 @@ def remove_black_background_images(cfg: PipelineConfig) -> int:
         log.info("Destination : %s", cfg.black_bg_dir)
     return total
 
-
 # ──────────────────────────────────────────────────────────────────────────────
 # Étape 5 : DataFrame + LabelEncoder
 # ──────────────────────────────────────────────────────────────────────────────
-
 
 def build_dataframe(cfg: PipelineConfig) -> tuple[pd.DataFrame, LabelEncoder]:
     """Construit le DataFrame (filepath, class_name, label) à partir de output_dir."""
@@ -473,7 +459,6 @@ def build_dataframe(cfg: PipelineConfig) -> tuple[pd.DataFrame, LabelEncoder]:
 # ──────────────────────────────────────────────────────────────────────────────
 # Étape 6 : split stratifié différencié
 # ──────────────────────────────────────────────────────────────────────────────
-
 
 def stratified_split(
     df: pd.DataFrame, cfg: PipelineConfig
@@ -508,14 +493,8 @@ def stratified_split(
         val_parts.append(val_g)
         test_parts.append(test_g)
 
-        log.info(
-            "  %-45s [%s] train=%4d val=%3d test=%3d",
-            class_name,
-            regime,
-            len(train_g),
-            len(val_g),
-            len(test_g),
-        )
+        log.info("  %-45s [%s] train=%4d val=%3d test=%3d",
+                 class_name, regime, len(train_g), len(val_g), len(test_g))
 
     def _concat_shuffle(parts):
         return (
@@ -528,19 +507,14 @@ def stratified_split(
     val_df = _concat_shuffle(val_parts)
     test_df = _concat_shuffle(test_parts)
 
-    log.info(
-        "Split total : train=%d val=%d test=%d",
-        len(train_df),
-        len(val_df),
-        len(test_df),
-    )
+    log.info("Split total : train=%d val=%d test=%d",
+             len(train_df), len(val_df), len(test_df))
     return train_df, val_df, test_df
 
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Étape 7 : downsampling du train
 # ──────────────────────────────────────────────────────────────────────────────
-
 
 def downsample_train(train_df: pd.DataFrame, cfg: PipelineConfig) -> pd.DataFrame:
     """Réduit chaque classe à max_per_class échantillons maximum dans le train."""
@@ -564,20 +538,17 @@ def downsample_train(train_df: pd.DataFrame, cfg: PipelineConfig) -> pd.DataFram
 # Étape 8 : augmentation des classes minoritaires
 # ──────────────────────────────────────────────────────────────────────────────
 
-
 def _build_aug_transform() -> transforms.Compose:
     """Augmentations adaptées aux feuilles de tomate (invariances biologiques)."""
-    return transforms.Compose(
-        [
-            transforms.Resize(256),
-            transforms.RandomHorizontalFlip(p=0.5),
-            transforms.RandomVerticalFlip(p=0.3),
-            transforms.RandomResizedCrop(224, scale=(0.9, 1.0)),
-            transforms.ColorJitter(
-                brightness=0.15, contrast=0.15, saturation=0.15, hue=0.02
-            ),
-        ]
-    )
+    return transforms.Compose([
+        transforms.Resize(256),
+        transforms.RandomHorizontalFlip(p=0.5),
+        transforms.RandomVerticalFlip(p=0.3),
+        transforms.RandomResizedCrop(224, scale=(0.9, 1.0)),
+        transforms.ColorJitter(
+            brightness=0.15, contrast=0.15, saturation=0.15, hue=0.02
+        ),
+    ])
 
 
 def augment_minority_classes(
@@ -614,9 +585,8 @@ def augment_minority_classes(
         src_paths = cls_df["filepath"].tolist()
         label = int(cls_df["label"].iloc[0])
 
-        log.info(
-            "  augmentation %-45s %d → %d (+%d)", cls, current, cfg.aug_target, needed
-        )
+        log.info("  augmentation %-45s %d → %d (+%d)",
+                 cls, current, cfg.aug_target, needed)
 
         generated = 0
         while generated < needed:
@@ -627,13 +597,11 @@ def augment_minority_classes(
                     aug = aug_transform(im)
                 save_path = out_dir / f"aug_{generated:04d}.jpg"
                 aug.save(save_path, format="JPEG", quality=92)
-                new_rows.append(
-                    {
-                        "filepath": str(save_path),
-                        "class_name": cls,
-                        "label": label,
-                    }
-                )
+                new_rows.append({
+                    "filepath": str(save_path),
+                    "class_name": cls,
+                    "label": label,
+                })
                 generated += 1
             except Exception as e:
                 log.warning("Échec augmentation %s : %s", src, e)
@@ -652,7 +620,6 @@ def augment_minority_classes(
 # Étape 9 : class weights
 # ──────────────────────────────────────────────────────────────────────────────
 
-
 def compute_weights(train_df: pd.DataFrame, cfg: PipelineConfig) -> pd.DataFrame:
     """Calcule les class weights équilibrés à partir du train final."""
     classes = np.array(sorted(train_df["label"].unique()))
@@ -665,17 +632,11 @@ def compute_weights(train_df: pd.DataFrame, cfg: PipelineConfig) -> pd.DataFrame
         .set_index("label")["class_name"]
         .to_dict()
     )
-    weights_df = (
-        pd.DataFrame(
-            {
-                "label": classes,
-                "class_name": [idx_to_class[i] for i in classes],
-                "weight": weights,
-            }
-        )
-        .sort_values("label")
-        .reset_index(drop=True)
-    )
+    weights_df = pd.DataFrame({
+        "label": classes,
+        "class_name": [idx_to_class[i] for i in classes],
+        "weight": weights,
+    }).sort_values("label").reset_index(drop=True)
 
     out_path = cfg.output_dir / "class_weights.csv"
     weights_df.to_csv(out_path, index=False)
@@ -686,7 +647,6 @@ def compute_weights(train_df: pd.DataFrame, cfg: PipelineConfig) -> pd.DataFrame
 # ──────────────────────────────────────────────────────────────────────────────
 # Étape 10 : export arborescence finale train/val/test
 # ──────────────────────────────────────────────────────────────────────────────
-
 
 def export_final_tree(
     train_df: pd.DataFrame,
@@ -726,7 +686,6 @@ def export_final_tree(
 # ──────────────────────────────────────────────────────────────────────────────
 # Étape 11 : vérification finale d'intégrité
 # ──────────────────────────────────────────────────────────────────────────────
-
 
 def verify_integrity(
     train_df: pd.DataFrame,
@@ -798,22 +757,18 @@ def verify_integrity(
             if not split_dir.exists():
                 continue
             tree_count = sum(
-                1
-                for cls_dir in split_dir.iterdir()
-                if cls_dir.is_dir()
+                1 for cls_dir in split_dir.iterdir() if cls_dir.is_dir()
                 for f in cls_dir.iterdir()
                 if f.is_file() and f.suffix.lower() in IMAGE_EXTS
             )
             csv_count = len(all_splits[split_name])
             if tree_count != csv_count:
                 report["split_vs_tree_mismatch"][split_name] = {
-                    "csv": csv_count,
-                    "tree": tree_count,
+                    "csv": csv_count, "tree": tree_count
                 }
         if report["split_vs_tree_mismatch"]:
-            log.warning(
-                "  incohérence CSV/arborescence : %s", report["split_vs_tree_mismatch"]
-            )
+            log.warning("  incohérence CSV/arborescence : %s",
+                        report["split_vs_tree_mismatch"])
         else:
             log.info("  CSV et arborescence cohérents")
 
@@ -826,9 +781,8 @@ def verify_integrity(
         if not bad.empty:
             report["label_inconsistencies"].append((split_name, bad.to_dict()))
     if report["label_inconsistencies"]:
-        log.warning(
-            "  incohérences label↔class_name : %s", report["label_inconsistencies"]
-        )
+        log.warning("  incohérences label↔class_name : %s",
+                    report["label_inconsistencies"])
     else:
         log.info("  mapping label↔class_name stable")
 
@@ -852,28 +806,23 @@ def verify_integrity(
 # Étape 12 : archive zip de tomato_final
 # ──────────────────────────────────────────────────────────────────────────────
 
-
 def zip_final_dataset(cfg: PipelineConfig) -> Path:
     """Crée une archive tomato_final.zip du dossier final, prête à être transférée."""
     if not cfg.final_dir.exists():
         log.warning("Pas d'arborescence finale à zipper : %s", cfg.final_dir)
         return None
     zip_base = cfg.output_dir / "tomato_final"
-    archive_path = Path(
-        shutil.make_archive(str(zip_base), "zip", root_dir=str(cfg.final_dir))
-    )
-    log.info(
-        "Archive créée : %s (%.1f MB)",
-        archive_path,
-        archive_path.stat().st_size / (1024**2),
-    )
+    archive_path = Path(shutil.make_archive(
+        str(zip_base), "zip", root_dir=str(cfg.final_dir)
+    ))
+    log.info("Archive créée : %s (%.1f MB)",
+             archive_path, archive_path.stat().st_size / (1024 ** 2))
     return archive_path
 
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Sauvegarde des CSV de split
 # ──────────────────────────────────────────────────────────────────────────────
-
 
 def save_split_csvs(
     train_df: pd.DataFrame,
@@ -891,10 +840,8 @@ def save_split_csvs(
 # Orchestrateur
 # ──────────────────────────────────────────────────────────────────────────────
 
-
-def run_pipeline(
-    cfg: PipelineConfig, deep_verify: bool = False, make_archive: bool = True
-) -> dict:
+def run_pipeline(cfg: PipelineConfig, deep_verify: bool = False,
+                 make_archive: bool = True) -> dict:
     log.info("=" * 72)
     log.info("Pipeline de construction du dataset tomate")
     log.info("  data_dir      : %s", cfg.data_dir)
@@ -940,7 +887,8 @@ def run_pipeline(
     export_final_tree(train_df, val_df, test_df, cfg)
 
     log.info("[12/12] Vérification finale d'intégrité")
-    report = verify_integrity(train_df, val_df, test_df, cfg, deep_check=deep_verify)
+    report = verify_integrity(train_df, val_df, test_df, cfg,
+                              deep_check=deep_verify)
 
     if make_archive:
         log.info("Étape optionnelle : création de l'archive zip")
@@ -957,49 +905,28 @@ def parse_args() -> argparse.Namespace:
         description="Construit un dataset de classification de feuilles de tomate."
     )
     p.add_argument(
-        "--data-dir",
-        type=Path,
-        required=True,
+        "--data-dir", type=Path, required=True,
         help="Dossier racine contenant les .zip bruts et les sous-dossiers extraits.",
     )
-    p.add_argument(
-        "--threshold",
-        type=int,
-        default=1000,
-        help="Seuil de split 70/15/15 vs 50/25/25 (défaut: 1000).",
-    )
-    p.add_argument(
-        "--max-per-class",
-        type=int,
-        default=2000,
-        help="Plafond train par classe (défaut: 2000).",
-    )
-    p.add_argument(
-        "--aug-threshold",
-        type=int,
-        default=800,
-        help="Seuil en deçà duquel augmenter (défaut: 800).",
-    )
-    p.add_argument(
-        "--aug-target",
-        type=int,
-        default=800,
-        help="Effectif train cible après augmentation (défaut: 800).",
-    )
+    p.add_argument("--threshold", type=int, default=1000,
+                   help="Seuil de split 70/15/15 vs 50/25/25 (défaut: 1000).")
+    p.add_argument("--max-per-class", type=int, default=2000,
+                   help="Plafond train par classe (défaut: 2000).")
+    p.add_argument("--aug-threshold", type=int, default=800,
+                   help="Seuil en deçà duquel augmenter (défaut: 800).")
+    p.add_argument("--aug-target", type=int, default=800,
+                   help="Effectif train cible après augmentation (défaut: 800).")
     p.add_argument("--random-state", type=int, default=42)
     p.add_argument(
-        "--deep-verify",
-        action="store_true",
+        "--deep-verify", action="store_true",
         help="Re-vérifie PIL chaque image à la fin (lent mais exhaustif).",
     )
     p.add_argument(
-        "--no-archive",
-        action="store_true",
+        "--no-archive", action="store_true",
         help="Ne génère pas l'archive tomato_final.zip en fin de pipeline.",
     )
     p.add_argument(
-        "--keep-black-bg",
-        action="store_true",
+        "--keep-black-bg", action="store_true",
         help="Ne pas retirer les images à fond noir (les garde dans tomato_only/).",
     )
     return p.parse_args()
@@ -1016,9 +943,8 @@ def main() -> int:
         random_state=args.random_state,
     )
     try:
-        run_pipeline(
-            cfg, deep_verify=args.deep_verify, make_archive=not args.no_archive
-        )
+        run_pipeline(cfg, deep_verify=args.deep_verify,
+                     make_archive=not args.no_archive)
     except Exception:
         log.exception("Échec du pipeline")
         return 1
