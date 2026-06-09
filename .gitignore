@@ -37,6 +37,8 @@ data/processed/tomato_segment_dataset/*
 !data/processed/tomato_segment_dataset/
 !data/processed/tomato_segment_dataset/README.md
 
+data/raw/pest-diagnostic/
+
 # Logs
 
 *.log
