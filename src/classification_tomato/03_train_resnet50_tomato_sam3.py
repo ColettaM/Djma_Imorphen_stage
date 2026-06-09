@@ -162,32 +162,27 @@ def get_transforms(img_size: int = 224):
     transformations trop agressives.
     """
 
-    train_transform = transforms.Compose([
-        transforms.Resize((256, 256)),
-        transforms.RandomResizedCrop(img_size, scale=(0.9, 1.0)),
-        transforms.RandomHorizontalFlip(p=0.5),
-        transforms.ColorJitter(
-            brightness=0.1,
-            contrast=0.1,
-            saturation=0.1,
-            hue=0.02
-        ),
-        transforms.ToTensor(),
-        transforms.Normalize(
-            mean=[0.485, 0.456, 0.406],
-            std=[0.229, 0.224, 0.225]
-        ),
-    ])
+    train_transform = transforms.Compose(
+        [
+            transforms.Resize((256, 256)),
+            transforms.RandomResizedCrop(img_size, scale=(0.9, 1.0)),
+            transforms.RandomHorizontalFlip(p=0.5),
+            transforms.ColorJitter(
+                brightness=0.1, contrast=0.1, saturation=0.1, hue=0.02
+            ),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ]
+    )
 
-    eval_transform = transforms.Compose([
-        transforms.Resize((256, 256)),
-        transforms.CenterCrop(img_size),
-        transforms.ToTensor(),
-        transforms.Normalize(
-            mean=[0.485, 0.456, 0.406],
-            std=[0.229, 0.224, 0.225]
-        ),
-    ])
+    eval_transform = transforms.Compose(
+        [
+            transforms.Resize((256, 256)),
+            transforms.CenterCrop(img_size),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ]
+    )
 
     return train_transform, eval_transform
 
@@ -223,7 +218,10 @@ def build_dataloaders(data_dir: str, batch_size: int, num_workers: int, img_size
     val_dataset = datasets.ImageFolder(val_dir, transform=eval_tf)
     test_dataset = datasets.ImageFolder(test_dir, transform=eval_tf)
 
-    if train_dataset.classes != val_dataset.classes or train_dataset.classes != test_dataset.classes:
+    if (
+        train_dataset.classes != val_dataset.classes
+        or train_dataset.classes != test_dataset.classes
+    ):
         raise ValueError("Les classes de train/val/test ne sont pas cohérentes.")
 
     class_names = train_dataset.classes
@@ -282,10 +280,7 @@ def build_model(num_classes: int, dropout: float = 0.3):
     model = models.resnet50(weights=weights)
 
     in_features = model.fc.in_features
-    model.fc = nn.Sequential(
-        nn.Dropout(dropout),
-        nn.Linear(in_features, num_classes)
-    )
+    model.fc = nn.Sequential(nn.Dropout(dropout), nn.Linear(in_features, num_classes))
     return model
 
 
@@ -430,9 +425,7 @@ def run_phase(
         train_loss, train_acc, train_f1 = train_one_epoch(
             model, train_loader, criterion, optimizer, device
         )
-        val_loss, val_acc, val_f1, _, _ = evaluate(
-            model, val_loader, criterion, device
-        )
+        val_loss, val_acc, val_f1, _, _ = evaluate(model, val_loader, criterion, device)
 
         if scheduler is not None:
             scheduler.step(val_f1)
@@ -478,10 +471,14 @@ def run_phase(
             torch.save(model.state_dict(), ckpt_path)
             patience_counter = 0
 
-            mlflow.log_metric("best_val_macro_f1_so_far", float(best_val_f1_global), step=epoch)
+            mlflow.log_metric(
+                "best_val_macro_f1_so_far", float(best_val_f1_global), step=epoch
+            )
             mlflow.set_tag("best_ckpt_updated", "true")
 
-            print(f"  -> nouveau meilleur modèle global sauvegardé (val_macro_f1={best_val_f1_global:.4f})")
+            print(
+                f"  -> nouveau meilleur modèle global sauvegardé (val_macro_f1={best_val_f1_global:.4f})"
+            )
         else:
             patience_counter += 1
             mlflow.set_tag("best_ckpt_updated", "false")
@@ -505,8 +502,12 @@ def save_history_plot(history, save_path):
     epochs = history["epoch"]
 
     # Calculé une seule fois pour les deux subplots
-    transition = next((i for i, p in enumerate(history["phase"]) if p == "finetuning"), None)
-    transition_epoch = history["epoch"][transition] - 0.5 if transition is not None else None
+    transition = next(
+        (i for i, p in enumerate(history["phase"]) if p == "finetuning"), None
+    )
+    transition_epoch = (
+        history["epoch"][transition] - 0.5 if transition is not None else None
+    )
 
     plt.figure(figsize=(12, 5))
 
@@ -517,8 +518,13 @@ def save_history_plot(history, save_path):
     plt.ylabel("Loss")
     plt.title("Courbes de loss")
     if transition_epoch is not None:
-        plt.axvline(x=transition_epoch, color='red', linestyle='--',
-                    alpha=0.5, label='début fine-tuning')
+        plt.axvline(
+            x=transition_epoch,
+            color="red",
+            linestyle="--",
+            alpha=0.5,
+            label="début fine-tuning",
+        )
     plt.legend()
     plt.grid(True)
 
@@ -529,8 +535,13 @@ def save_history_plot(history, save_path):
     plt.ylabel("Macro-F1")
     plt.title("Courbes de macro-F1")
     if transition_epoch is not None:
-        plt.axvline(x=transition_epoch, color='red', linestyle='--',
-                    alpha=0.5, label='début fine-tuning')
+        plt.axvline(
+            x=transition_epoch,
+            color="red",
+            linestyle="--",
+            alpha=0.5,
+            label="début fine-tuning",
+        )
     plt.legend()
     plt.grid(True)
 
@@ -590,9 +601,9 @@ def main(args):
 
     with mlflow.start_run(run_name=args.mlflow_run_name):
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        
-        #torch.backends.cudnn.enabled = False
-        #print("cuDNN enabled:", torch.backends.cudnn.enabled)
+
+        # torch.backends.cudnn.enabled = False
+        # print("cuDNN enabled:", torch.backends.cudnn.enabled)
 
         (
             train_dataset,
@@ -631,46 +642,49 @@ def main(args):
         config = vars(args)
         save_json(config, os.path.join(args.output_dir, "config.json"))
 
-        mlflow.log_params({
-            "data_dir": args.data_dir,
-            "output_dir": args.output_dir,
-            "img_size": args.img_size,
-            "batch_size": args.batch_size,
-            "num_workers": args.num_workers,
-            "epochs_head": args.epochs_head,
-            "epochs_ft": args.epochs_ft,
-            "lr_head": args.lr_head,
-            "lr_ft": args.lr_ft,
-            "weight_decay": args.weight_decay,
-            "dropout": args.dropout,
-            "patience": args.patience,
-            "unfreeze": args.unfreeze,
-            "seed": args.seed,
-            "num_classes": len(class_names),
-            "train_size": len(train_dataset),
-            "val_size": len(val_dataset),
-            "test_size": len(test_dataset),
-            "architecture": "resnet50",
-            "pretrained_weights": "IMAGENET1K_V2",
-            "selection_metric": "val_macro_f1",
-            "class_weights_used": False,
-            "training_protocol": "2_phases_head_then_finetuning",
-        })
+        mlflow.log_params(
+            {
+                "data_dir": args.data_dir,
+                "output_dir": args.output_dir,
+                "img_size": args.img_size,
+                "batch_size": args.batch_size,
+                "num_workers": args.num_workers,
+                "epochs_head": args.epochs_head,
+                "epochs_ft": args.epochs_ft,
+                "lr_head": args.lr_head,
+                "lr_ft": args.lr_ft,
+                "weight_decay": args.weight_decay,
+                "dropout": args.dropout,
+                "patience": args.patience,
+                "unfreeze": args.unfreeze,
+                "seed": args.seed,
+                "num_classes": len(class_names),
+                "train_size": len(train_dataset),
+                "val_size": len(val_dataset),
+                "test_size": len(test_dataset),
+                "architecture": "resnet50",
+                "pretrained_weights": "IMAGENET1K_V2",
+                "selection_metric": "val_macro_f1",
+                "class_weights_used": False,
+                "training_protocol": "2_phases_head_then_finetuning",
+            }
+        )
 
-        mlflow.set_tags({
-            "project": "tomato_disease_classification",
-            "model_family": "ResNet50",
-            "dataset": "tomato_segment_dataset",
-            "task": "multiclass_classification",
-            "baseline_type": "first_experiment",
-        })
+        mlflow.set_tags(
+            {
+                "project": "tomato_disease_classification",
+                "model_family": "ResNet50",
+                "dataset": "tomato_segment_dataset",
+                "task": "multiclass_classification",
+                "baseline_type": "first_experiment",
+            }
+        )
 
         mlflow.log_text("\n".join(class_names), "artifacts/class_names.txt")
 
-        model = build_model(
-            num_classes=len(class_names),
-            dropout=args.dropout
-        ).to(device)
+        model = build_model(num_classes=len(class_names), dropout=args.dropout).to(
+            device
+        )
 
         criterion = nn.CrossEntropyLoss()
 
@@ -787,11 +801,7 @@ def main(args):
         )
 
         test_report = classification_report(
-            y_true,
-            y_pred,
-            target_names=class_names,
-            digits=4,
-            zero_division=0
+            y_true, y_pred, target_names=class_names, digits=4, zero_division=0
         )
 
         print(f"Test loss      : {test_loss:.4f}")
@@ -810,37 +820,63 @@ def main(args):
         }
         save_json(metrics_test, os.path.join(args.output_dir, "metrics_test.json"))
 
-        with open(os.path.join(args.output_dir, "classification_report.txt"), "w", encoding="utf-8") as f:
+        with open(
+            os.path.join(args.output_dir, "classification_report.txt"),
+            "w",
+            encoding="utf-8",
+        ) as f:
             f.write(test_report)
 
-        save_history_plot(
-            history,
-            os.path.join(args.output_dir, "learning_curves.png")
-        )
+        save_history_plot(history, os.path.join(args.output_dir, "learning_curves.png"))
 
         save_confusion_matrix(
             y_true,
             y_pred,
             class_names,
-            os.path.join(args.output_dir, "confusion_matrix_test.png")
+            os.path.join(args.output_dir, "confusion_matrix_test.png"),
         )
 
-        mlflow.log_metrics({
-            "test_loss": float(test_loss),
-            "test_accuracy": float(test_acc),
-            "test_macro_f1": float(test_f1),
-        })
+        mlflow.log_metrics(
+            {
+                "test_loss": float(test_loss),
+                "test_accuracy": float(test_acc),
+                "test_macro_f1": float(test_f1),
+            }
+        )
 
-        mlflow.log_artifact(os.path.join(args.output_dir, "config.json"), artifact_path="results")
-        mlflow.log_artifact(os.path.join(args.output_dir, "class_names.json"), artifact_path="results")
-        mlflow.log_artifact(os.path.join(args.output_dir, "class_to_idx.json"), artifact_path="results")
-        mlflow.log_artifact(os.path.join(args.output_dir, "idx_to_class.json"), artifact_path="results")
-        mlflow.log_artifact(os.path.join(args.output_dir, "history.json"), artifact_path="results")
-        mlflow.log_artifact(os.path.join(args.output_dir, "history.csv"), artifact_path="results")
-        mlflow.log_artifact(os.path.join(args.output_dir, "metrics_test.json"), artifact_path="results")
-        mlflow.log_artifact(os.path.join(args.output_dir, "classification_report.txt"), artifact_path="results")
-        mlflow.log_artifact(os.path.join(args.output_dir, "learning_curves.png"), artifact_path="results")
-        mlflow.log_artifact(os.path.join(args.output_dir, "confusion_matrix_test.png"), artifact_path="results")
+        mlflow.log_artifact(
+            os.path.join(args.output_dir, "config.json"), artifact_path="results"
+        )
+        mlflow.log_artifact(
+            os.path.join(args.output_dir, "class_names.json"), artifact_path="results"
+        )
+        mlflow.log_artifact(
+            os.path.join(args.output_dir, "class_to_idx.json"), artifact_path="results"
+        )
+        mlflow.log_artifact(
+            os.path.join(args.output_dir, "idx_to_class.json"), artifact_path="results"
+        )
+        mlflow.log_artifact(
+            os.path.join(args.output_dir, "history.json"), artifact_path="results"
+        )
+        mlflow.log_artifact(
+            os.path.join(args.output_dir, "history.csv"), artifact_path="results"
+        )
+        mlflow.log_artifact(
+            os.path.join(args.output_dir, "metrics_test.json"), artifact_path="results"
+        )
+        mlflow.log_artifact(
+            os.path.join(args.output_dir, "classification_report.txt"),
+            artifact_path="results",
+        )
+        mlflow.log_artifact(
+            os.path.join(args.output_dir, "learning_curves.png"),
+            artifact_path="results",
+        )
+        mlflow.log_artifact(
+            os.path.join(args.output_dir, "confusion_matrix_test.png"),
+            artifact_path="results",
+        )
         mlflow.log_artifact(best_ckpt_path, artifact_path="checkpoints")
         mlflow.log_artifact(last_ckpt_path, artifact_path="checkpoints")
 
@@ -848,18 +884,18 @@ def main(args):
         mlflow.pytorch.log_model(model, artifact_path="model")
 
         print("\n=== FICHIERS SAUVEGARDÉS ===")
-        print(f"- config.json")
-        print(f"- class_names.json")
-        print(f"- class_to_idx.json")
-        print(f"- idx_to_class.json")
-        print(f"- history.json")
-        print(f"- history.csv")
-        print(f"- metrics_test.json")
-        print(f"- classification_report.txt")
-        print(f"- learning_curves.png")
-        print(f"- confusion_matrix_test.png")
-        print(f"- best_resnet50_tomato.pth")
-        print(f"- last_resnet50_tomato.pth")
+        print("- config.json")
+        print("- class_names.json")
+        print("- class_to_idx.json")
+        print("- idx_to_class.json")
+        print("- history.json")
+        print("- history.csv")
+        print("- metrics_test.json")
+        print("- classification_report.txt")
+        print("- learning_curves.png")
+        print("- confusion_matrix_test.png")
+        print("- best_resnet50_tomato.pth")
+        print("- last_resnet50_tomato.pth")
         print(f"\nRésultats disponibles dans : {args.output_dir}")
 
 
@@ -875,108 +911,83 @@ if __name__ == "__main__":
         "--data_dir",
         type=str,
         required=True,
-        help="Chemin vers le dossier tomato_segment_dataset contenant train/ val/ test/"
+        help="Chemin vers le dossier tomato_segment_dataset contenant train/ val/ test/",
     )
     parser.add_argument(
         "--output_dir",
         type=str,
         default="./outputs_resnet50_tomato",
-        help="Dossier de sortie pour sauvegarder modèles, métriques et figures"
+        help="Dossier de sortie pour sauvegarder modèles, métriques et figures",
     )
 
     parser.add_argument(
-        "--img_size",
-        type=int,
-        default=224,
-        help="Taille des images après crop"
+        "--img_size", type=int, default=224, help="Taille des images après crop"
     )
-    parser.add_argument(
-        "--batch_size",
-        type=int,
-        default=32,
-        help="Taille du batch"
-    )
+    parser.add_argument("--batch_size", type=int, default=32, help="Taille du batch")
     parser.add_argument(
         "--num_workers",
         type=int,
         default=4,
-        help="Nombre de workers pour les DataLoaders"
+        help="Nombre de workers pour les DataLoaders",
     )
 
     parser.add_argument(
         "--epochs_head",
         type=int,
         default=5,
-        help="Nombre d'epochs pour la phase 1 (tête de classification)"
+        help="Nombre d'epochs pour la phase 1 (tête de classification)",
     )
     parser.add_argument(
         "--epochs_ft",
         type=int,
         default=15,
-        help="Nombre d'epochs pour la phase 2 (fine-tuning)"
+        help="Nombre d'epochs pour la phase 2 (fine-tuning)",
     )
     parser.add_argument(
         "--lr_head",
         type=float,
         default=1e-3,
-        help="Learning rate pour la tête de classification"
+        help="Learning rate pour la tête de classification",
     )
     parser.add_argument(
-        "--lr_ft",
-        type=float,
-        default=1e-4,
-        help="Learning rate pour le fine-tuning"
+        "--lr_ft", type=float, default=1e-4, help="Learning rate pour le fine-tuning"
     )
     parser.add_argument(
-        "--weight_decay",
-        type=float,
-        default=1e-4,
-        help="Weight decay pour AdamW"
+        "--weight_decay", type=float, default=1e-4, help="Weight decay pour AdamW"
     )
     parser.add_argument(
         "--dropout",
         type=float,
         default=0.3,
-        help="Dropout appliqué avant la couche finale"
+        help="Dropout appliqué avant la couche finale",
     )
     parser.add_argument(
-        "--patience",
-        type=int,
-        default=3,
-        help="Patience pour l'early stopping"
+        "--patience", type=int, default=3, help="Patience pour l'early stopping"
     )
     parser.add_argument(
         "--unfreeze",
         type=str,
         default="layer4",
         choices=["layer4", "all"],
-        help="Choix du fine-tuning : dernier bloc seulement ou tout le réseau"
+        help="Choix du fine-tuning : dernier bloc seulement ou tout le réseau",
     )
 
-    parser.add_argument(
-        "--seed",
-        type=int,
-        default=42,
-        help="Graine aléatoire"
-    )
+    parser.add_argument("--seed", type=int, default=42, help="Graine aléatoire")
 
     parser.add_argument(
         "--mlflow_experiment",
         type=str,
         default="Tomato_ResNet50_SAM3",
-        help="Nom de l'expérience MLflow"
+        help="Nom de l'expérience MLflow",
     )
     parser.add_argument(
-        "--mlflow_run_name",
-        type=str,
-        default=None,
-        help="Nom du run MLflow"
+        "--mlflow_run_name", type=str, default=None, help="Nom du run MLflow"
     )
     parser.add_argument(
         "--mlflow_tracking_uri",
         type=str,
         default=None,
-        help="Tracking URI MLflow (ex: http://localhost:5000)"
+        help="Tracking URI MLflow (ex: http://localhost:5000)",
     )
 
     args = parser.parse_args()
