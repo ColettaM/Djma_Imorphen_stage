@@ -420,7 +420,8 @@ def write_report(
                 f"Nom bioagresseur filename <-> référentiel (fuzzy) : {n_match} / {n_total} OK"
             )
             mismatches = manifest_images.loc[
-                manifest_images["bio_name_match"] == False,
+                ~manifest_images["bio_name_match"],
+                # manifest_images["bio_name_match"] == False,
                 ["id_bulletin", "bioagresseur_filename", "nom_bioagresseur"],
             ]
             if not mismatches.empty:

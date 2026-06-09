@@ -1,0 +1,14 @@
+# Pipeline climat — dépendances Python
+# Manipulation de données et CSV
+pandas~=2.2.0
+numpy~=1.26.0
+
+# Lecture EXIF
+pillow~=10.4.0
+
+# Appels HTTP vers Open-Meteo (session avec retries)
+requests~=2.32.0
+urllib3~=2.2.0
+
+# Stockage du cache météo en parquet
+pyarrow~=16.0.0
