@@ -16,9 +16,10 @@ pycache/
 # Résultats
 
 results/
-*.png
-*.jpg
-*.jpeg
+
+results/**/*.png
+results/**/*.jpg
+results/**/*.jpeg
 
 # Docs
 
@@ -52,4 +53,4 @@ desktop.ini
 *key*.txt
 *secret*.txt
 *clés*.txt
-data/processed/tomato_final/
+
