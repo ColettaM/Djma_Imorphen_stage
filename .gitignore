@@ -32,6 +32,10 @@ data/processed/tomato_final/*
 !data/processed/tomato_final/
 !data/processed/tomato_final/README.md
 
+data/processed/tomato_segment_dataset/*
+!data/processed/tomato_segment_dataset/
+!data/processed/tomato_segment_dataset/README.md
+
 # Logs
 
 *.log
