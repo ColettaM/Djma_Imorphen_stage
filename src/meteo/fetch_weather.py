@@ -115,14 +115,15 @@ DAILY_VARS = [
 # Taille de la fenêtre météo :
 # pour une observation à J, on récupère J-15 jusqu'à J-1.
 WINDOW_DAYS = 15  # J-15 → J-1
- 
+
 
 # ---- Session HTTP robuste ---------------------------------------------------
+
 
 def build_session() -> requests.Session:
     """Session avec retry automatique sur 429 et 5xx."""
 
-    # Création d'une session persistante. 
+    # Création d'une session persistante.
     # Cela permet de réutiliser les connexions HTTP entre plusieurs appels.
     session = requests.Session()
 
@@ -156,6 +157,7 @@ SESSION = build_session()
 
 
 # ---- Helpers ----------------------------------------------------------------
+
 
 def cache_key(lat: float, lon: float, date) -> str:
     """Clé de cache stable. lat/lon arrondis à 4 décimales (~10 m)."""
@@ -213,8 +215,10 @@ def fetch_one(lat: float, lon: float, end_date) -> pd.DataFrame | None:
             # ressource absente, etc.
             # Dans ces cas, refaire la même requête ne sert à rien.
             if response.status_code in (400, 401, 403, 404):
-                print(f"  [HTTP {response.status_code}] permanent : "
-                      f"lat={lat}, lon={lon}, période={start}→{end}")
+                print(
+                    f"  [HTTP {response.status_code}] permanent : "
+                    f"lat={lat}, lon={lon}, période={start}→{end}"
+                )
                 return None
 
             # Cas spécifique du rate limiting.
@@ -231,8 +235,11 @@ def fetch_one(lat: float, lon: float, end_date) -> pd.DataFrame | None:
                 # Sinon, on applique un backoff progressif avec un peu
                 # d'aléatoire pour éviter de relancer toutes les requêtes
                 # exactement au même moment.
-                wait = (float(retry_after) if retry_after and retry_after.isdigit()
-                        else min(20 * attempt, 90) + random.uniform(1, 3))
+                wait = (
+                    float(retry_after)
+                    if retry_after and retry_after.isdigit()
+                    else min(20 * attempt, 90) + random.uniform(1, 3)
+                )
 
                 print(f"  [429] retry {attempt}/{max_attempts} dans {wait:.1f}s")
                 time.sleep(wait)
@@ -240,7 +247,7 @@ def fetch_one(lat: float, lon: float, end_date) -> pd.DataFrame | None:
 
             # Pour les autres codes d'erreur HTTP, déclenche une exception.
             response.raise_for_status()
-        
+
             # Conversion JSON -> dict Python
             payload = response.json()
 
@@ -250,7 +257,6 @@ def fetch_one(lat: float, lon: float, end_date) -> pd.DataFrame | None:
             # Sauvegarde
             with open(json_path, "w", encoding="utf-8") as f:
                 json.dump(payload, f, indent=2, ensure_ascii=False)
-
 
             # Si la clé "daily" est absente, la réponse n'est pas exploitable.
             if "daily" not in payload:
@@ -302,27 +308,40 @@ def fetch_one(lat: float, lon: float, end_date) -> pd.DataFrame | None:
 
 # ---- Main -------------------------------------------------------------------
 
+
 def main() -> int:
     # Déclaration des arguments disponibles en ligne de commande.
     parser = argparse.ArgumentParser()
 
     # Permet de tester le script sur un petit nombre d'observations.
-    parser.add_argument("--limit", type=int, default=None,
-                        help="Limite le nombre d'observations (test).")
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Limite le nombre d'observations (test).",
+    )
 
     # Choix du mode d'éligibilité :
     # - strict : seulement les observations outdoor pertinentes
     # - loose : inclut aussi WINDOW pour audit/exploration
-    parser.add_argument("--ready-mode", choices=["strict", "loose"], default="loose",
-                        help="strict = phase2_ready (outdoor uniquement), "
-                             "loose = phase2_ready_loose.")
+    parser.add_argument(
+        "--ready-mode",
+        choices=["strict", "loose"],
+        default="loose",
+        help="strict = phase2_ready (outdoor uniquement), "
+        "loose = phase2_ready_loose.",
+    )
 
     # Choix de la granularité :
     # - bulletin : recommandé, une requête météo par observation utilisateur
     # - image : mode historique, une requête météo par image
-    parser.add_argument("--granularity", choices=["bulletin", "image"], default="bulletin",
-                        help="bulletin = 1 fetch par bulletin (recommandé), "
-                             "image = 1 fetch par image (legacy).")
+    parser.add_argument(
+        "--granularity",
+        choices=["bulletin", "image"],
+        default="bulletin",
+        help="bulletin = 1 fetch par bulletin (recommandé), "
+        "image = 1 fetch par image (legacy).",
+    )
 
     args = parser.parse_args()
 
@@ -348,7 +367,6 @@ def main() -> int:
             print("→ Lance build_phase2_context.py d'abord.", file=sys.stderr)
         return 1
 
-   
     # Création des dossiers de sortie
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     PARQUET_DIR.mkdir(parents=True, exist_ok=True)
@@ -361,13 +379,9 @@ def main() -> int:
     flag_col = "phase2_ready" if args.ready_mode == "strict" else "phase2_ready_loose"
 
     # Conservation uniquement des observations prêtes pour la phase météo.
-    #df_ready = df[df[flag_col]].copy()
+    # df_ready = df[df[flag_col]].copy()
     ready_mask = (
-        df[flag_col]
-        .fillna(False)
-        .astype(str)
-        .str.lower()
-        .isin(["true", "1", "yes"])
+        df[flag_col].fillna(False).astype(str).str.lower().isin(["true", "1", "yes"])
     )
 
     df_ready = df[ready_mask].copy()
@@ -419,17 +433,21 @@ def main() -> int:
                 time.sleep(SLEEP_BETWEEN_CALLS_SEC)
 
         # Ajout d'une ligne dans le log d'exécution.
-        log_records.append({
-            "id": getattr(row, id_col, None),
-            "granularity": args.granularity,
-            "cache_key": key,
-            "status": status,
-        })
+        log_records.append(
+            {
+                "id": getattr(row, id_col, None),
+                "granularity": args.granularity,
+                "cache_key": key,
+                "status": status,
+            }
+        )
 
         # Affichage périodique de l'avancement tous les 50 éléments.
         if i % 50 == 0:
-            print(f"  {i}/{len(df_ready)} (cache={n_cached}, "
-                  f"fetched={n_fetched}, failed={n_failed})")
+            print(
+                f"  {i}/{len(df_ready)} (cache={n_cached}, "
+                f"fetched={n_fetched}, failed={n_failed})"
+            )
 
     # Écriture du journal final.
     pd.DataFrame(log_records).to_csv(LOG_CSV, index=False)

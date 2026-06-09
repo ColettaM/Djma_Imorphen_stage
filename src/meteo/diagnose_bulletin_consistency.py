@@ -49,8 +49,10 @@ def main() -> None:
     by_bull = df_multi.groupby("bulletin_id")
     garden_unique = by_bull["garden_id"].nunique(dropna=False)
     n_inconsistent_garden = (garden_unique > 1).sum()
-    print(f"  bulletins multi-images avec garden_id divergent : "
-          f"{n_inconsistent_garden}/{len(multi)}")
+    print(
+        f"  bulletins multi-images avec garden_id divergent : "
+        f"{n_inconsistent_garden}/{len(multi)}"
+    )
     if n_inconsistent_garden > 0:
         bad = garden_unique[garden_unique > 1].index
         print(f"  exemples : {list(bad[:5])}")
@@ -70,10 +72,13 @@ def main() -> None:
 
     # ---- Verdict ---------------------------------------------------------
     print("\n[VERDICT]")
-    if n_inconsistent_garden == 0 and (valid.groupby("bulletin_id")
-                                       ["datetime_original"]
-                                       .agg(lambda s: s.max() - s.min())
-                                       .dt.total_seconds().max() < 3600):
+    if n_inconsistent_garden == 0 and (
+        valid.groupby("bulletin_id")["datetime_original"]
+        .agg(lambda s: s.max() - s.min())
+        .dt.total_seconds()
+        .max()
+        < 3600
+    ):
         print("  ✓ Agrégation triviale possible :")
         print("    - garden_id constant par bulletin")
         print("    - dates EXIF dans la même heure")

@@ -27,7 +27,9 @@ from PIL.ExifTags import TAGS, GPSTAGS
 
 # ---- Configuration ----------------------------------------------------------
 
-ROOT = Path("/mnt/c/Users/LARIS-1/Desktop/DJMA/app") # <-- à adapter selon votre environnement
+ROOT = Path(
+    "/mnt/c/Users/LARIS-1/Desktop/DJMA/app"
+)  # <-- à adapter selon votre environnement
 IMG_DIR = ROOT / "analyse_descriptive" / "pest-diagnostic"
 OUTPUT = Path(__file__).parent / "outputs" / "manifest_exif.csv"
 
@@ -35,6 +37,7 @@ EXIF_DATE_FORMATS = ("%Y:%m:%d %H:%M:%S", "%Y:%m:%d %H:%M:%S.%f")
 
 
 # ---- Helpers ----------------------------------------------------------------
+
 
 def parse_exif_date(value: str | None) -> datetime | None:
     """Tente plusieurs formats EXIF (avec et sans sous-secondes)."""
@@ -97,7 +100,9 @@ def extract_one(img_path: Path) -> dict:
                 record["exif_status"] = "no_exif"
                 return record
 
-            exif = {TAGS.get(tag_id, tag_id): value for tag_id, value in exif_raw.items()}
+            exif = {
+                TAGS.get(tag_id, tag_id): value for tag_id, value in exif_raw.items()
+            }
 
             dt = parse_exif_date(exif.get("DateTimeOriginal"))
             if dt:
@@ -128,6 +133,7 @@ def extract_one(img_path: Path) -> dict:
 
 # ---- Main -------------------------------------------------------------------
 
+
 def main() -> int:
     if not IMG_DIR.exists():
         print(f"[ERREUR] Dossier introuvable : {IMG_DIR}", file=sys.stderr)
@@ -139,10 +145,19 @@ def main() -> int:
     print(f"[INFO] {len(images)} fichiers détectés dans {IMG_DIR}")
 
     fieldnames = [
-        "filename", "file_size_kb", "file_modification_date",
-        "datetime_original", "datetime_source",
-        "make", "model", "software", "gps_latitude", "gps_longitude",
-        "image_width", "image_height", "exif_status",
+        "filename",
+        "file_size_kb",
+        "file_modification_date",
+        "datetime_original",
+        "datetime_source",
+        "make",
+        "model",
+        "software",
+        "gps_latitude",
+        "gps_longitude",
+        "image_width",
+        "image_height",
+        "exif_status",
     ]
 
     with OUTPUT.open("w", newline="", encoding="utf-8") as f:
@@ -175,8 +190,12 @@ def main() -> int:
     print("=" * 60)
     print(f"Total images          : {total}")
     print(f"  date EXIF valide    : {stats['ok']:>6} ({100*stats['ok']/total:.1f} %)")
-    print(f"  pas de date EXIF    : {stats['no_date']:>6} ({100*stats['no_date']/total:.1f} %)")
-    print(f"  aucun bloc EXIF     : {stats['no_exif']:>6} ({100*stats['no_exif']/total:.1f} %)")
+    print(
+        f"  pas de date EXIF    : {stats['no_date']:>6} ({100*stats['no_date']/total:.1f} %)"
+    )
+    print(
+        f"  aucun bloc EXIF     : {stats['no_exif']:>6} ({100*stats['no_exif']/total:.1f} %)"
+    )
     print(f"  fichiers illisibles : {stats['unreadable']:>6}")
     print(f"  autres erreurs      : {stats['errors']:>6}")
     print(f"\nManifest écrit       : {OUTPUT}")

@@ -27,7 +27,9 @@ import pandas as pd
 # ---- Configuration ----------------------------------------------------------
 
 
-ROOT = Path("/mnt/c/Users/LARIS-1/Desktop/DJMA/app") # <-- à adapter selon votre environnement
+ROOT = Path(
+    "/mnt/c/Users/LARIS-1/Desktop/DJMA/app"
+)  # <-- à adapter selon votre environnement
 EXIF_MANIFEST = Path(__file__).parent / "outputs" / "manifest_exif.csv"
 MANIFEST_IMAGES = ROOT / "analyse_descriptive" / "manifest" / "manifest_images.csv"
 GARDEN_CSV = ROOT / "analyse_descriptive" / "tables_de_liaison" / "gardens.csv"
@@ -86,6 +88,7 @@ RENAME_MANIFEST = {
 
 
 # ---- Helpers ----------------------------------------------------------------
+
 
 def read_csv_robust(path: Path) -> pd.DataFrame:
     """Charge un CSV en testant plusieurs encodages courants."""
@@ -174,7 +177,9 @@ def sanity_check_filename_convention(df: pd.DataFrame) -> dict:
         mask = sample["nom_bioagresseur"].notna()
         if mask.any():
             left = seg_bio[mask].astype(str).str.strip().str.lower()
-            right = sample.loc[mask, "nom_bioagresseur"].astype(str).str.strip().str.lower()
+            right = (
+                sample.loc[mask, "nom_bioagresseur"].astype(str).str.strip().str.lower()
+            )
             match_rate = (left == right).mean()
             details["nom_bioagresseur"] = (match_rate, mask.sum())
             if match_rate < 0.95:
@@ -192,6 +197,7 @@ def sanity_check_filename_convention(df: pd.DataFrame) -> dict:
 
 
 # ---- Main -------------------------------------------------------------------
+
 
 def main() -> int:
     for path, label in [
@@ -217,18 +223,21 @@ def main() -> int:
     print(f"[INFO] Manifest   : {len(df_man):>6} lignes")
     print(f"[INFO] Gardens    : {len(df_gard):>6} lignes")
 
-    df_man = df_man.rename(columns={k: v for k, v in RENAME_MANIFEST.items()
-                                     if k in df_man.columns})
+    df_man = df_man.rename(
+        columns={k: v for k, v in RENAME_MANIFEST.items() if k in df_man.columns}
+    )
     df_gard = df_gard.rename(columns={"id": "garden_id"})
 
-    print(f"\n[DEBUG] Colonnes manifest après renommage :")
+    print("\n[DEBUG] Colonnes manifest après renommage :")
     print(f"        {list(df_man.columns)}")
 
     required = {"bulletin_id", "filename", "garden_id"}
     missing = required - set(df_man.columns)
     if missing:
-        print(f"[ERREUR] Colonnes manquantes dans manifest_images : {missing}",
-              file=sys.stderr)
+        print(
+            f"[ERREUR] Colonnes manquantes dans manifest_images : {missing}",
+            file=sys.stderr,
+        )
         return 1
 
     if "is_test" in df_man.columns:
@@ -243,26 +252,39 @@ def main() -> int:
     print(f"  bien formés (4 segments)  : {sc['well_formed']}")
     for col, (rate, n) in sc.get("details", {}).items():
         symbol = "✓" if rate >= 0.95 else "⚠"
-        print(f"  {symbol} segment ↔ {col:18s} : {100*rate:5.1f} % ({n} lignes non-nulles)")
+        print(
+            f"  {symbol} segment ↔ {col:18s} : {100*rate:5.1f} % ({n} lignes non-nulles)"
+        )
     if not sc["errors"]:
         print("  ✓ convention respectée à ≥ 95 % sur tous les contrôles")
 
     # ---- Jointure 1 : manifest ⨝ EXIF sur filename ------------------------
     df = df_man.merge(df_exif, on="filename", how="left")
     n_with_exif = df["datetime_original"].notna().sum()
-    print(f"\n[INFO] Images avec EXIF apparié : {n_with_exif}/{len(df)} "
-          f"({100*n_with_exif/len(df):.1f} %)")
+    print(
+        f"\n[INFO] Images avec EXIF apparié : {n_with_exif}/{len(df)} "
+        f"({100*n_with_exif/len(df):.1f} %)"
+    )
 
     # ---- Jointure 2 : ⨝ Garden sur garden_id ------------------------------
-    keep_garden = ["garden_id", "postal_code", "city", "country",
-                   "latitude", "longitude",
-                   "sunshine_type_id", "plant_location_id"]
+    keep_garden = [
+        "garden_id",
+        "postal_code",
+        "city",
+        "country",
+        "latitude",
+        "longitude",
+        "sunshine_type_id",
+        "plant_location_id",
+    ]
     keep_garden = [c for c in keep_garden if c in df_gard.columns]
     df = df.merge(df_gard[keep_garden], on="garden_id", how="left")
 
     n_with_garden = df["latitude"].notna().sum()
-    print(f"[INFO] Images avec Garden apparié : {n_with_garden}/{len(df)} "
-          f"({100*n_with_garden/len(df):.1f} %)")
+    print(
+        f"[INFO] Images avec Garden apparié : {n_with_garden}/{len(df)} "
+        f"({100*n_with_garden/len(df):.1f} %)"
+    )
 
     # ---- Décodage des id --------------------------------------------------
     df["plant_location"] = df["plant_location_id"].map(PLANT_LOCATION_MAP)
@@ -284,33 +306,58 @@ def main() -> int:
     # phase2_ready (strict) : pour la calibration des règles agronomiques.
     # phase2_ready_loose    : pour les analyses exploratoires, inclut WINDOW.
     df["phase2_ready"] = has_image & has_exif_date & has_coords & df["outdoor"]
-    df["phase2_ready_loose"] = has_image & has_exif_date & has_coords & df["outdoor_loose"]
+    df["phase2_ready_loose"] = (
+        has_image & has_exif_date & has_coords & df["outdoor_loose"]
+    )
 
     if "status" in df.columns:
-        df["status_confirmed"] = (df["status"] == "CONFIRMED")
+        df["status_confirmed"] = df["status"] == "CONFIRMED"
 
     # ---- Sélection finale --------------------------------------------------
     final_cols = [
         # Identifiants
-        "bulletin_id", "filename", "image_hash",
+        "bulletin_id",
+        "filename",
+        "image_hash",
         # Date d'observation
-        "datetime_original", "datetime_source", "mtime",
+        "datetime_original",
+        "datetime_source",
+        "mtime",
         # Localisation
-        "garden_id", "user_id", "latitude", "longitude",
-        "postal_code", "city", "country",
+        "garden_id",
+        "user_id",
+        "latitude",
+        "longitude",
+        "postal_code",
+        "city",
+        "country",
         # Contexte jardin
-        "plant_location_id", "plant_location",
-        "sunshine_type_id", "sunshine_type",
-        "weather_relevance", "outdoor", "outdoor_loose",
+        "plant_location_id",
+        "plant_location",
+        "sunshine_type_id",
+        "sunshine_type",
+        "weather_relevance",
+        "outdoor",
+        "outdoor_loose",
         # Métadonnées plante (déjà résolues dans le manifest)
-        "espece_id", "nom_espece",
-        "bioagresseur_id", "nom_bioagresseur",
-        "pest_type", "parties_infectees", "symptoms_description",
-        "status", "type",
+        "espece_id",
+        "nom_espece",
+        "bioagresseur_id",
+        "nom_bioagresseur",
+        "pest_type",
+        "parties_infectees",
+        "symptoms_description",
+        "status",
+        "type",
         # Audit qualité
-        "make", "model", "size_bytes", "is_test",
+        "make",
+        "model",
+        "size_bytes",
+        "is_test",
         # Drapeaux
-        "phase2_ready_loose", "phase2_ready", "status_confirmed",
+        "phase2_ready_loose",
+        "phase2_ready",
+        "status_confirmed",
     ]
     final_cols = [c for c in final_cols if c in df.columns]
     df_out = df[final_cols].copy()
@@ -355,13 +402,11 @@ def main() -> int:
     add("")
     if "nom_bioagresseur" in df_out.columns:
         add("Top 15 bioagresseurs (par image) :")
-        add(df_out["nom_bioagresseur"].value_counts(dropna=False)
-            .head(15).to_string())
+        add(df_out["nom_bioagresseur"].value_counts(dropna=False).head(15).to_string())
         add("")
     if "nom_espece" in df_out.columns:
         add("Top 15 espèces (par image) :")
-        add(df_out["nom_espece"].value_counts(dropna=False)
-            .head(15).to_string())
+        add(df_out["nom_espece"].value_counts(dropna=False).head(15).to_string())
         add("")
     if "model" in df_out.columns:
         add("Diversité téléphones (top 10, par image) :")

@@ -31,13 +31,17 @@ Produit : outputs/phase2_bulletins.csv
 from __future__ import annotations
 
 import sys
-from pathlib import Path 
+from pathlib import Path
 
 import pandas as pd
 
 
-ROOT = Path("/mnt/c/Users/LARIS-1/Desktop/DJMA/app") # <-- à adapter selon votre environnement
-MANIFEST_BULLETINS = ROOT / "analyse_descriptive" / "manifest" / "manifest_bulletins.csv"
+ROOT = Path(
+    "/mnt/c/Users/LARIS-1/Desktop/DJMA/app"
+)  # <-- à adapter selon votre environnement
+MANIFEST_BULLETINS = (
+    ROOT / "analyse_descriptive" / "manifest" / "manifest_bulletins.csv"
+)
 PHASE2_CTX = Path(__file__).parent / "outputs" / "phase2_context.csv"
 
 OUTPUT = Path(__file__).parent / "outputs" / "phase2_bulletins.csv"
@@ -60,6 +64,7 @@ RENAME_BULLETINS = {
 
 
 # ---- Helpers ----------------------------------------------------------------
+
 
 def read_csv_robust(path: Path) -> pd.DataFrame:
     last_err = None
@@ -118,9 +123,14 @@ def aggregate_images_by_bulletin(df_ctx: pd.DataFrame) -> pd.DataFrame:
                 out[f"{col}_n_distinct"] = group[col].dropna().nunique()
 
         # Contexte jardin
-        for col in ["plant_location_id", "plant_location",
-                    "sunshine_type_id", "sunshine_type",
-                    "weather_relevance", "outdoor"]:
+        for col in [
+            "plant_location_id",
+            "plant_location",
+            "sunshine_type_id",
+            "sunshine_type",
+            "weather_relevance",
+            "outdoor",
+        ]:
             if col in group.columns:
                 out[col] = take_unique_or_mode(group[col])
 
@@ -141,6 +151,7 @@ def aggregate_images_by_bulletin(df_ctx: pd.DataFrame) -> pd.DataFrame:
 
 # ---- Main -------------------------------------------------------------------
 
+
 def main() -> int:
     for path, label in [
         (MANIFEST_BULLETINS, "manifest_bulletins.csv"),
@@ -159,24 +170,37 @@ def main() -> int:
     print(f"\n[INFO] manifest_bulletins : {len(df_bull):>5} bulletins")
     print(f"[INFO] phase2_context     : {len(df_ctx):>5} images")
 
-    df_bull = df_bull.rename(columns={k: v for k, v in RENAME_BULLETINS.items()
-                                       if k in df_bull.columns})
+    df_bull = df_bull.rename(
+        columns={k: v for k, v in RENAME_BULLETINS.items() if k in df_bull.columns}
+    )
 
-    print(f"\n[DEBUG] Colonnes manifest_bulletins après renommage :")
+    print("\n[DEBUG] Colonnes manifest_bulletins après renommage :")
     print(f"        {list(df_bull.columns)}")
 
     if "bulletin_id" not in df_bull.columns:
-        print("[ERREUR] Colonne ID/bulletin_id introuvable dans manifest_bulletins",
-              file=sys.stderr)
+        print(
+            "[ERREUR] Colonne ID/bulletin_id introuvable dans manifest_bulletins",
+            file=sys.stderr,
+        )
         return 1
 
     keep_bull = [
-        "bulletin_id", "status", "type",
-        "nom_espece", "nom_bioagresseur", "pest_type",
-        "parties_infectees", "symptoms_description",
-        "n_images", "n_images_test",
-        "espece_id", "variete_id", "bioagresseur_id",
-        "user_id", "garden_id", "garden_plant_id",
+        "bulletin_id",
+        "status",
+        "type",
+        "nom_espece",
+        "nom_bioagresseur",
+        "pest_type",
+        "parties_infectees",
+        "symptoms_description",
+        "n_images",
+        "n_images_test",
+        "espece_id",
+        "variete_id",
+        "bioagresseur_id",
+        "user_id",
+        "garden_id",
+        "garden_plant_id",
     ]
     keep_bull = [c for c in keep_bull if c in df_bull.columns]
     df_bull = df_bull[keep_bull]
@@ -190,33 +214,54 @@ def main() -> int:
 
     # Sanity : cohérence n_images officiel vs trouvé
     if "n_images" in df.columns and "n_images_found" in df.columns:
-        df["n_images_match"] = (df["n_images"] == df["n_images_found"])
+        df["n_images_match"] = df["n_images"] == df["n_images_found"]
         n_mismatch = (~df["n_images_match"] & df["n_images_found"].notna()).sum()
         print(f"\n[INFO] n_images officiel ≠ trouvé : {n_mismatch} bulletins")
         if n_mismatch > 0:
             print("       (images manquantes sur disque ou manifest_images incomplet)")
 
     if "status" in df.columns:
-        df["status_confirmed"] = (df["status"] == "CONFIRMED")
+        df["status_confirmed"] = df["status"] == "CONFIRMED"
 
     final_cols = [
         "bulletin_id",
-        "status", "status_confirmed", "type",
-        "nom_espece", "espece_id", "variete_id",
-        "nom_bioagresseur", "bioagresseur_id", "pest_type",
-        "parties_infectees", "symptoms_description",
-        "n_images", "n_images_test",
-        "n_images_found", "n_images_with_exif", "n_images_match",
+        "status",
+        "status_confirmed",
+        "type",
+        "nom_espece",
+        "espece_id",
+        "variete_id",
+        "nom_bioagresseur",
+        "bioagresseur_id",
+        "pest_type",
+        "parties_infectees",
+        "symptoms_description",
+        "n_images",
+        "n_images_test",
+        "n_images_found",
+        "n_images_with_exif",
+        "n_images_match",
         "filenames",
-        "datetime_observation", "date_span_minutes",
-        "user_id", "garden_id", "garden_plant_id",
-        "latitude", "longitude",
-        "postal_code", "city", "country",
-        "plant_location_id", "plant_location",
-        "sunshine_type_id", "sunshine_type",
-        "weather_relevance", "outdoor",
-        "latitude_n_distinct", "garden_id_n_distinct",
-        "phase2_ready", "phase2_ready_loose",
+        "datetime_observation",
+        "date_span_minutes",
+        "user_id",
+        "garden_id",
+        "garden_plant_id",
+        "latitude",
+        "longitude",
+        "postal_code",
+        "city",
+        "country",
+        "plant_location_id",
+        "plant_location",
+        "sunshine_type_id",
+        "sunshine_type",
+        "weather_relevance",
+        "outdoor",
+        "latitude_n_distinct",
+        "garden_id_n_distinct",
+        "phase2_ready",
+        "phase2_ready_loose",
     ]
     final_cols = [c for c in final_cols if c in df.columns]
     df_out = df[final_cols].copy()
@@ -233,7 +278,9 @@ def main() -> int:
     add("=" * 60)
     add(f"Bulletins officiels DJMA          : {len(df_out)}")
     add(f"  avec images trouvées            : {df_out['n_images_found'].notna().sum()}")
-    add(f"  avec date EXIF (médiane)        : {df_out['datetime_observation'].notna().sum()}")
+    add(
+        f"  avec date EXIF (médiane)        : {df_out['datetime_observation'].notna().sum()}"
+    )
     add(f"  avec coordonnées GPS            : {df_out['latitude'].notna().sum()}")
     if "outdoor" in df_out.columns:
         add(f"  outdoor                         : {df_out['outdoor'].sum()}")
@@ -250,10 +297,14 @@ def main() -> int:
         add(f"  bulletins multi-images          : {(df_out['n_images'] > 1).sum()}")
 
     if "n_images_match" in df_out.columns:
-        n_mismatch = (~df_out["n_images_match"] & df_out["n_images_found"].notna()).sum()
+        n_mismatch = (
+            ~df_out["n_images_match"] & df_out["n_images_found"].notna()
+        ).sum()
         add("")
-        add(f"Cohérence n_images officiel ↔ trouvé : "
-            f"{n_mismatch} bulletins divergents")
+        add(
+            f"Cohérence n_images officiel ↔ trouvé : "
+            f"{n_mismatch} bulletins divergents"
+        )
 
     if "date_span_minutes" in df_out.columns:
         spans = df_out["date_span_minutes"].dropna()
@@ -267,8 +318,7 @@ def main() -> int:
 
     add("")
     add("Top 15 bioagresseurs (au niveau bulletin) :")
-    add(df_out["nom_bioagresseur"].value_counts(dropna=False)
-        .head(15).to_string())
+    add(df_out["nom_bioagresseur"].value_counts(dropna=False).head(15).to_string())
     add("")
     add("Distribution status :")
     add(df_out["status"].value_counts(dropna=False).to_string())

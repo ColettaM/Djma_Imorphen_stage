@@ -36,6 +36,7 @@ HEATWAVE_MIN_DAYS = 3
 
 # ---- Helpers (repris/adaptés du pipeline du collègue) -----------------------
 
+
 def longest_streak(boolean_series: pd.Series) -> int:
     """Plus longue série consécutive de True."""
     if boolean_series.empty:
@@ -62,6 +63,7 @@ def cache_key(lat: float, lon: float, date) -> str:
 
 # ---- Calcul des features ----------------------------------------------------
 
+
 def compute_features(wx: pd.DataFrame) -> dict:
     """Vecteur de features à partir d'un DataFrame quotidien Open-Meteo."""
     f: dict = {}
@@ -78,10 +80,18 @@ def compute_features(wx: pd.DataFrame) -> dict:
 
     # ---- Humidité --------------------------------------------------------
     rh = wx.get("relative_humidity_2m_mean")
-    f["humidity_mean_15d"] = round(float(rh.mean()), 1) if rh is not None and rh.notna().any() else None
-    f["humidity_max_15d"] = round(float(rh.max()), 1) if rh is not None and rh.notna().any() else None
+    f["humidity_mean_15d"] = (
+        round(float(rh.mean()), 1) if rh is not None and rh.notna().any() else None
+    )
+    f["humidity_max_15d"] = (
+        round(float(rh.max()), 1) if rh is not None and rh.notna().any() else None
+    )
     rh_min = wx.get("relative_humidity_2m_min")
-    f["humidity_min_15d"] = round(float(rh_min.min()), 1) if rh_min is not None and rh_min.notna().any() else None
+    f["humidity_min_15d"] = (
+        round(float(rh_min.min()), 1)
+        if rh_min is not None and rh_min.notna().any()
+        else None
+    )
 
     # Nb de jours d'humidité haute (≥ 85 %), pertinent pour la cladosporiose
     if rh is not None:
@@ -92,12 +102,18 @@ def compute_features(wx: pd.DataFrame) -> dict:
     # ---- Point de rosée et VPD -----------------------------------------
     # Point de rosée élevé → condensation foliaire → conditions de mildiou
     dew = wx.get("dew_point_2m_mean")
-    f["dew_point_mean_15d"] = round(float(dew.mean()), 2) if dew is not None and dew.notna().any() else None
+    f["dew_point_mean_15d"] = (
+        round(float(dew.mean()), 2) if dew is not None and dew.notna().any() else None
+    )
 
     # VPD élevé → stress hydrique foliaire, conditions favorables aux acariens
     vpd = wx.get("vapour_pressure_deficit_max")
-    f["vpd_max_15d"] = round(float(vpd.max()), 3) if vpd is not None and vpd.notna().any() else None
-    f["vpd_mean_15d"] = round(float(vpd.mean()), 3) if vpd is not None and vpd.notna().any() else None
+    f["vpd_max_15d"] = (
+        round(float(vpd.max()), 3) if vpd is not None and vpd.notna().any() else None
+    )
+    f["vpd_mean_15d"] = (
+        round(float(vpd.mean()), 3) if vpd is not None and vpd.notna().any() else None
+    )
 
     # ---- Température ----------------------------------------------------
     tmean = wx.get("temperature_2m_mean")
@@ -107,7 +123,9 @@ def compute_features(wx: pd.DataFrame) -> dict:
     f["temp_max_15d"] = round(float(tmax.max()), 2) if tmax is not None else None
     f["temp_min_15d"] = round(float(tmin.min()), 2) if tmin is not None else None
     f["hot_days_15d"] = int((tmax > HOT_THRESHOLD).sum()) if tmax is not None else None
-    f["cold_days_15d"] = int((tmin < COLD_THRESHOLD).sum()) if tmin is not None else None
+    f["cold_days_15d"] = (
+        int((tmin < COLD_THRESHOLD).sum()) if tmin is not None else None
+    )
 
     # Évènements canicule (≥3 jours consécutifs > 30 °C)
     if tmax is not None:
@@ -149,12 +167,18 @@ def compute_features(wx: pd.DataFrame) -> dict:
 
 # ---- Main -------------------------------------------------------------------
 
+
 def main() -> int:
     import argparse
+
     parser = argparse.ArgumentParser()
-    parser.add_argument("--granularity", choices=["bulletin", "image"], default="bulletin",
-                        help="bulletin = lit phase2_bulletins.csv, "
-                             "image = lit phase2_context.csv (legacy).")
+    parser.add_argument(
+        "--granularity",
+        choices=["bulletin", "image"],
+        default="bulletin",
+        help="bulletin = lit phase2_bulletins.csv, "
+        "image = lit phase2_context.csv (legacy).",
+    )
     args = parser.parse_args()
 
     if args.granularity == "bulletin":
@@ -170,8 +194,9 @@ def main() -> int:
         print(f"[ERREUR] {src} manquant.", file=sys.stderr)
         return 1
     if not CACHE_DIR.exists():
-        print(f"[ERREUR] {CACHE_DIR} manquant. Lance fetch_weather.py.",
-              file=sys.stderr)
+        print(
+            f"[ERREUR] {CACHE_DIR} manquant. Lance fetch_weather.py.", file=sys.stderr
+        )
         return 1
 
     df = pd.read_csv(src, parse_dates=[date_col])
@@ -213,9 +238,15 @@ def main() -> int:
     valid = df_full.dropna(subset=["rain_sum_15d"])
     if not valid.empty:
         id_col = "bulletin_id" if args.granularity == "bulletin" else "filename"
-        cols = [id_col, "rain_sum_15d", "humidity_mean_15d",
-                "vpd_max_15d", "temp_mean_15d", "hot_days_15d",
-                "soil_moisture_mean_15d"]
+        cols = [
+            id_col,
+            "rain_sum_15d",
+            "humidity_mean_15d",
+            "vpd_max_15d",
+            "temp_mean_15d",
+            "hot_days_15d",
+            "soil_moisture_mean_15d",
+        ]
         cols = [c for c in cols if c in valid.columns]
         print("\nAperçu features (5 premières lignes) :")
         print(valid[cols].head(5).to_string(index=False))
