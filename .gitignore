@@ -37,10 +37,11 @@ data/processed/tomato_segment_dataset/*
 !data/processed/tomato_segment_dataset/
 !data/processed/tomato_segment_dataset/README.md
 
-data/raw/pest-diagnostic/
+data/raw/meteo/pest-diagnostic/
+!data/raw/meteo/pest-diagnostic/README.md
 
-data/raw/tables_de_liaison/*.csv
-!data/raw/tables_de_liaison/README.md
+data/raw/meteo/tables_de_liaison/*.csv
+!data/raw/meteo/tables_de_liaison/README.md
 
 # Logs
 
@@ -58,3 +59,4 @@ desktop.ini
 *key*.txt
 *secret*.txt
 *clés*.txt
+*clé*.txt
