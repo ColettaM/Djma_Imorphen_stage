@@ -1,0 +1,414 @@
+--- PAGE 1 ---
+Retrouvez gratuitement le BSV toutes les semaines sur les sites Internet de
+                                  la Chambre Régionale d’Agriculture Grand Est et de la DRAAF
+
+
+                                                                   BSV n°1 – 19 avril 2023
+
+             À RETENIR CETTE SEMAINE
+
+Cliquez sur le sommaire pour accéder directement à la culture
+
+       DONNÉES MÉTÉO
+
+
+        OMBELLIFÈRES
+        Mouche de la carotte : RAS, pas de piégeage.
+          Septoriose : RAS, risque nul.
+
+
+       CHOUX
+         Premier vol de la teigne des crucifères. Risque faible.
+
+
+       OIGNON
+          Thrips et mildiou sur oignon de jours courts. RAS sur oignon de semis de printemps.
+
+
+      POMME DE TERRE
+         Levée des précoces bâchées en cours. RAS
+
+
+       NOTE BIODIVERSITÉ
+           Abeilles sauvages et santé des agro-écosystèmes.
+
+
+
+
+
+           Produits de biocontrôle : ils sont disponibles ici (liste établie par la note de service Note de service
+         DGAL/SAS/2022-949 du 22 décembre 2022).
+
+
+         Note d'information sur l'arrêté du 20 novembre 2021 relatif à la protection des abeilles et des
+          autres insectes pollinisateurs, en complément de la note nationale abeille :
+          https://draaf.grand-est.agriculture.gouv.fr/IMG/pdf/note_dinformation_abeille-_arrete_-
+          draaf_ge.pdf
+
+
+
+
+
+                           Le réseau compte 6 parcelles observées cette semaine.
+
+--- PAGE 2 ---
+DONNÉES MÉTÉO
+
+
+
+Prévisions à 7 jours :
+
+     Ombellifères
+
+
+
+
+
+               (Source : Météo France, ville de Sélestat, 19/04/2023 à 14h30. Retrouvez les données météo actualisées ici)
+
+    Choux
+
+
+
+
+
+          (Source : Météo France, commune de Innenheim, 19/04/2023 à 14h30. Retrouvez les données météo actualisées ici)
+
+    Oignon et Pomme de terre
+
+
+
+
+
+            (Source : Météo France, commune d’Obernai, 19/04/2023 à 14h30. Retrouvez les données météo actualisées ici)
+
+
+
+
+
+                                                                               BSV 1 – P.2
+
+--- PAGE 3 ---
+OMBELLIFÈRES
+
+
+       1   Stade phénologique
+
+
+Le réseau sera constitué de 4 parcelles en 2023 en Alsace et de 2 en Champagne. Une parcelle suivie cette semaine.
+
+
+             Nom de la parcelle    Lieu      Culture   Implantation    Stade
+
+                  Mussig céleri 1       Mussig    Céleri    05/04/2023    2 feuilles
+
+
+Un piège est constitué de 3 plaques engluées, disposées entre 5 à 10 mètres les uns des autres.
+
+
+       2  Mouche de la carotte
+
+
+                   a. Observations
+
+
+Aucun individu n’a été capturé sur la parcelle de Mussig. Les conditions météorologiques fraiches et pluvieuses ne
+sont pas propices au vol de la mouche de la carotte.
+
+           Relevé des piégeages de la mouche de la carotte
+
+
+     0,16
+
+     0,14
+
+     0,12
+   jour 0,10
+ /
+     0,08
+                                                                                                       Seuil de nuisibilité     /piege
+     0,06
+  nb                                                                                 Mussig Céleri Schnell S14
+     0,04
+
+     0,02
+
+     0,00
+                                                        05/04/2023                                                                                                                                               12/04/2023                                                                                                                                               19/04/2023
+
+
+                  b. Seuil indicatif de risque
+
+
+Le seuil est atteint quand une mouche est piégée en moyenne sur chacune des plaques engluées. Ramené à un
+nombre de mouches par jour, le seuil indicatif de risque est de 0,14.
+
+
+                     c. Analyse de risque
+
+
+
+
+
+                                                                               BSV 1 – P.3
+
+--- PAGE 4 ---
+d. Méthodes alternatives
+
+
+ -   Le sol humide favorise les pontes. Le risque est moins important sur les parcelles non irriguées car un grand
+    nombre d’œufs se dessèchent.
+ -   La mise en place de filets anti-insectes et/ou le décalage des semis permettent d’éviter les pontes.
+ -   Les bâches de forçage constituent une barrière efficace contre les attaques de mouches dans les parcelles de
+     céleri précoces.
+
+
+       3   Septoriose
+
+
+                   a. Observations
+
+
+Il n’y a pas d’attaque de septoriose qui a été observée pour l’instant.
+
+
+                  b. Seuil indicatif de risque
+
+
+Le modèle de calcul du risque Septocel (Septoriose du céleri de la DGAL sur la plateforme INOKI du CTIFL) a été validé
+sur céleri en France. Afin d'initier le démarrage du modèle, la date de repiquage est fixée au 1 mars. Une prévision
+du risque est calculée sur 5 jours à partir des données des stations météo de Muttersholtz, Duttlenheim, Valff et
+Sainte Croix en Plaine. Les données indiquent un risque nul actuellement.
+
+
+                     c. Analyse de risque
+
+
+
+
+
+                                                                               BSV 1 – P.4
+
+--- PAGE 5 ---
+CHOUX
+
+
+       1   Stade phénologique
+
+
+Le réseau est pour le moment constitué d’une parcelle en 2023.
+
+
+        Nom de la parcelle     Lieu         Culture               Plantation      Stade
+
+           Innenheim            Innenheim   Choux inflorescence   28/03/2023    4 feuilles
+
+
+       2   Chenilles phytophages
+
+
+                   a. Observations
+
+
+Teigne : 3 adultes de la teigne des crucifères ont été capturées cette semaine sur le piège mis en place.
+Noctuelle : aucun adulte de noctuelle n’a été capturé.
+
+
+                  b. Seuil indicatif de risque
+
+
+Les vols sont à observer toutes les semaines et à corréler avec une présence éventuelle de pontes ou de jeunes larves.
+En conditions normales, les adultes peuvent pondre dès l’accouplement et les œufs peuvent éclore sous 5 à 7 jours
+pour la teigne.
+
+
+                     c. Analyse de risque
+
+
+Au vu des conditions climatiques annoncées et du faible nombre d’adultes capturés, il est peu probable d’observer
+les premières chenilles dès la semaine prochaine et à un niveau significatif. Les conditions climatiques devront avant
+tout s’améliorer pour espérer un risque plus important, ce qui ne semble pas prévu cette semaine.
+
+
+
+
+
+                  d. Gestion du risque
+
+
+Contrôle des adventices de la famille des crucifères et des déchets de cultures de choux précédentes qui favorisent
+la présence des teignes adultes. Pose de filet anti-insectes, à installer sur cultures avant l’arrivée des adultes et des
+pontes.
+
+                    Biocontrôle : les Bt agissent sur jeunes chenilles par ingestion. Etant
+                    photosensibles et  lessivables,   il est important de l’appliquer  lors de
+                    journées couvertes ou en soirée et en dehors des pluies.
+
+
+
+
+
+                                                                               BSV 1 – P.5
+
+--- PAGE 6 ---
+OIGNON
+
+
+       1   Stade phénologique
+
+
+Le réseau est constitué d’une parcelle d’oignon jaune de semis pour la saison 2023.
+
+
+        Nom parcelle   Lieu        Culture              Implantation  Stade
+           Oignon         Obernai     Oignon jaune de semis   18/03/2023     fouet
+
+
+Les précipitations régulières ont permis d’obtenir des conditions de levée homogènes de la culture. Seules des levées
+d’adventices au stade cotylédons à 1 feuille sont observées pour le moment (chénopodes, mercuriales et renouées
+liseron en majorité).
+
+
+       2   Mildiou
+
+
+                   a. Seuil indicatif de risque
+
+
+Sur semis de printemps, il n’y a pas de risque avant le stade 2 feuilles de la culture et la
+2ème génération de mildiou.
+
+
+                  b. Analyse de risque
+
+
+Le cycle de développement du mildiou est constitué de 3 phases :
+ -    la sporulation : conditions requises la veille = température < 25°C, hygrométrie >
+    95%, pluie < 1 mm.
+ -    la contamination : le jour même de la sporulation (dispersion des spores) et si
+     l’hygrométrie est suffisante la nuit.
+ -   l’incubation : temps entre la contamination et les prochaines sorties de tâches =
+    10 jours à 15-17°C.
+
+
+
+
+                                                                                                  Mildiou sur oignons hivernés
+                                                                                                                           (A. CLAUDEL)
+
+Sur semis de printemps, le risque est faible actuellement à ce stade de la culture. En revanche, des foyers de mildiou
+ont été détectés sur oignon de jours courts la semaine passée.
+
+
+                     c. Gestion du risque
+
+
+ -   Maîtriser les adventices pour ne pas augmenter l’hygrométrie, favorable au développement de la maladie.
+ -    Fertilisation : l’excès d’azote fragilise les plantes et privilégie une végétation abondante.
+ -   Assurer une rotation de 4 à 5 ans minimum (conservation du champignon dans le sol).
+ -   Gestion des déchets : pas de tas de déchet à proximité, éliminer les plantes infectées.
+ -   Plantation et semis : éviter les densités de peuplement trop élevées.
+
+
+
+                                                                               BSV 1 – P.6
+
+--- PAGE 7 ---
+3   Thrips
+
+
+                   a. Observations
+
+
+Dans la parcelle du réseau, aucun individu n’a été détecté, en revanche sur culture hivernée au stade bulbaison, des
+adultes, des larves et des dégâts sont observés. Les populations restent faibles suites aux précipitations régulières et
+aux températures peu élevées.
+
+
+                  b. Seuil indicatif de risque
+
+
+Sur oignon de garde, le risque est limité, le feuillage n’étant pas récolté et les populations sont généralement
+maintenues par les irrigations ou les pluies. Sur oignon de printemps (oignon botte), les traces de nutritions ne sont
+pas tolérées et peuvent entraîner une dépréciation commerciale.
+
+
+                     c. Analyse de risque
+
+
+Compte tenu des conditions météorologiques, le risque est faible sur les semis de printemps des oignons de garde.
+
+
+
+
+
+                  d. Gestion du risque
+
+
+ -   Pose de filets anti-insectes avant le début du vol, leur efficacité reste cependant limitée contre les thrips :
+    http://www.planete-legumes.fr/wp-content/uploads/2016/12/Guide-technique-filets-anti-insectes.pdf.
+ -   Biocontrôle : utilisation de desséchants (dessication de la cuticule des insectes à corps mou). Voir liste des
+     produits disponibles (lien en première page).
+
+
+
+
+
+                                                                               BSV 1 – P.7
+
+--- PAGE 8 ---
+POMME DE TERRE
+
+
+       1   Stades phénologiques
+
+
+Le réseau est constitué de 3 parcelles pour la saison 2023 à ce jour.
+
+
+         Variété           Lieu           Culture                      Implantation    Stade
+
+        Tentation AB     Obernai       Chair ferme conservation      18/04/2023     Germination
+
+         Ditta AB           Valff           Chair ferme conservation      21/03/2023     Germination
+
+       Marabel         Baldenheim   Consommation conservation   21/03/2023     Germination
+
+
+Les primeurs plantées mi-mars sont en cours de levée sous bâche. La température de la butte à 10 cm de profondeur
+atteint à peine 10 °C en sol nu et 12°C avec une couverture plastique. La croissance est lente. Aucun bioagresseur
+observé à ce jour.
+
+
+
+
+
+      Ce bulletin est produit à partir d'observations ponctuelles réalisées sur un réseau de parcelles. S'il donne une tendance de la
+                   situation sanitaire régionale, celle-ci ne peut pas être transposée telle quelle à chacune des parcelles.
+
+     Observations : Gustave Muller, PLANETE Légumes.
+
+     Rédaction : PLANETE Légumes.
+
+     Bulletin édité sous la responsabilité de la Chambre Régionale d’Agriculture Grand Est.
+    Dans une démarche d'amélioration continue de qualité de la surveillance biologique du territoire, la DRAAF assure un contrôle de
+    second niveau sur l'ensemble du processus d'élaboration des BSV.
+
+     Coordination et renseignements : Joliane CARABIN - joliane.carabin@grandest.chambagri.fr
+
+
+
+                           "Action pilotée par le Ministère chargé de l'agriculture et le Ministère de l’Ecologie, avec l’appui financier de l’Office Français de
+                                 la Biodiversité, par les crédits issus de la redevance pour pollutions diffuses attribués au financement du plan EcophytoBSV 1II+".– P.8
+
+--- PAGE 9 ---
+Note biodiversité
+
+
+
+
+
+                                                                                 BSV 1 – P.9
+
+--- PAGE 10 ---
+BSV 1 – P.10

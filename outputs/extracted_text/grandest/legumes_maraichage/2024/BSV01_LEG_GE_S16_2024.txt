@@ -1,0 +1,746 @@
+--- PAGE 1 ---
+Retrouvez gratuitement le BSV toutes les semaines sur les sites Internet de
+                                  la Chambre Régionale d’Agriculture Grand Est et de la DRAAF
+
+
+                                                                   BSV n°1 – 17 avril 2024
+
+             À RETENIR CETTE SEMAINE
+
+Cliquez sur le sommaire pour accéder directement au paragraphe
+
+       DONNÉES MÉTÉO
+
+
+        ASPERGE
+        Mouche de l’asperge : Premières captures d’adultes.
+
+
+        OMBELLIFÈRES
+        Mouche de la carotte : 1 individu piégé. Risque faible.
+          Septoriose : RAS, risque nul.
+
+
+       CHOUX
+        Mouche du chou et lépidoptères : Risque faible.
+           Altises : Présence précoce, nouvelles plantations à surveiller.
+
+
+       OIGNON
+         Semis réalisés.
+
+
+      POMME DE TERRE
+         Levées des primeurs en cours. Pucerons : quelques foyers avec présence d’auxiliaires.
+
+
+         LAITUE
+         Limaces : Risque élevé.
+
+
+        SOLANACÉES ET CUCURBITACÉES SOUS ABRI
+         Pucerons : Absence.
+
+
+       NOTE BIODIVERSITÉ
+         Vers de terre et santé des agro-écosystèmes.
+
+
+      → La note Arrêté Abeilles-Pollinisateurs est disponible ici.
+
+--- PAGE 2 ---
+Produits de biocontrôle : ils sont disponibles ici
+             (liste établie par la note de service DGAL/SDSPV/2024-186 du 22 mars 2024).
+
+
+
+
+Ce logo est un indicateur sur les résistances aux substances actives couplées à un bioagresseur.
+          Vous trouverez des éléments complémentaires dans le lien ci-dessous :
+            Rapports techniques sur les résistances en France – R4P (r4p-inra.fr)
+
+
+
+
+
+                 LeLe réseauréseau comptecompte 2016 parcellesparcelles observéesobservées cettecette semaine.semaine.
+                                                                    BSV 1 – P.2
+
+--- PAGE 3 ---
+DONNÉES MÉTÉO
+
+
+
+Prévisions à 7 jours :
+
+  •   Alsace
+
+
+
+
+
+            (Source : Météo France, ville de Vendenheim, 17/04/2024 à 11 h50. Retrouvez les données météo actualisées ici)
+
+
+
+
+
+               (Source : Météo France, ville de Colmar, 17/04/2024 à 11 h51. Retrouvez les données météo actualisées ici)
+
+
+
+
+
+            (Source : Météo France, commune d’Obernai, 17/04/2024 à 11 h52. Retrouvez les données météo actualisées ici)
+
+  •  Champagne-Ardenne
+
+
+
+
+
+              (Source : Météo France, ville de Lavannes, 17/04/2024 à 11 h53. Retrouvez les données météo actualisées ici)
+
+
+
+
+
+        (Source : Météo France, ville de Vésigneul-sur-Marne, 17/04/2024 à 11 h54. Retrouvez les données météo actualisées ici)
+
+
+                                                                               BSV 1 – P.3
+
+--- PAGE 4 ---
+(Source : Météo France, ville de Allibaudières, 17/04/2024 à 11 h55. Retrouvez les données météo actualisées ici)
+
+
+
+
+
+    (Source : Météo France, ville de Cauroy-lès-Hermonville, 17/04/2024 à 11 h56. Retrouvez les données météo actualisées ici)
+
+•   Lorraine
+
+
+
+
+
+          (Source : Météo France, commune de Nancy, 17/04/2023 à 8h36. Retrouvez les données météo actualisées ici)
+
+
+
+
+
+            (Source : Météo France, commune de Metz, 17/04/2023 à 8h36. Retrouvez les données météo actualisées ici)
+
+
+
+
+
+            (Source : Météo France, commune d’Épinal, 17/04/2023 à 8h36. Retrouvez les données météo actualisées ici)
+
+
+
+
+
+                                                                              BSV 1 – P.4
+
+--- PAGE 5 ---
+ASPERGE
+
+
+       1   Stades phénologiques
+
+
+Le réseau est pour le moment constitué de 2 parcelles situées dans le Haut-Rhin :
+
+                                       Année de
+ Lieu (n° département)       Culture                      Pose piège    Stade
+                                                plantation
+
+ Rouffach (68)              Asperge blanche      2023     09/04/2023   Emergence 5 cm (BBCH 59)
+
+ Bennwihr (68)             Asperge verte        2022     09/04/2023   Récolte (BBCH 33)
+
+
+Un site est constitué de 5 baguettes engluées, disposées à 10 mètres les unes des autres sur une ligne.
+
+
+       2  Mouche de l’asperge
+
+
+                   a. Observations
+
+
+Observations précoces de mouches sur piège et sur culture sur les deux sites observés. Aucun dégât observé pour le
+moment (stades non pertinents).
+
+                                   Evolution des captures de la mouche de l'asperge (total des captures
+                                                       sur 5 pièges sur une semaine)
+
+                           3,5
+                        3
+                           2,5
+                       2
+                           1,5
+                        1
+                           0,5
+                        0
+                                     09/04/2024   10/04/2024   11/04/2024   12/04/2024   13/04/2024   14/04/2024   15/04/2024
+
+                                                   Rouffach (68)          Ostheim (68)
+
+
+                  b. Seuil indicatif de risque
+
+
+Le seuil indicatif de risque est d’une mouche par semaine et par piège (baguette engluée, à raison de 5 par parcelle).
+Il n’est pas atteint cette semaine.
+
+
+                     c. Analyse de risque
+
+
+Le retour d’une météo pluvieuse et plutôt fraîche aura l’avantage de limiter les vols de la mouche de l’asperge, mais
+aura le désavantage de limiter la vigueur de pousse de l’asperge, notamment pour les nouvelles plantations. En
+conséquence, les parcelles pourront être exposées plus longtemps aux vols qui s’avèrent assez précoces cette année.
+
+
+
+
+
+                                                                               BSV 1 – P.5
+
+--- PAGE 6 ---
+d. Gestion alternative du risque
+
+
+La pose de bâches permet la protection de la culture jusqu’à l’émergence.
+
+
+       3   Autre bioagresseur
+
+
+Criocères : de nombreux sont observés sur les cultures d’asperges vertes au stade récolte (présence d’adultes et de
+pontes sur 50 % des turions). Le risque est cependant moyen à faible avec l’avancée des récoltes.
+
+
+
+
+
+                                                                               BSV 1 – P.6
+
+--- PAGE 7 ---
+OMBELLIFÈRES
+
+
+       1   Stades phénologiques
+
+
+En 2024, le réseau sera constitué de 4 parcelles en Alsace et de 2 en Champagne. 3 parcelles suivies cette semaine.
+
+
+        Nom de la parcelle      Lieu      Culture   Implantation            Stade
+
+            Sélestat - Carotte      Sélestat     Carotte   09/04/2024    Cotylédons (BBCH 10)
+
+           Niedernai - Carotte   Niedernai   Carotte   27/03/2024   1 à 2 feuilles (BBCH 11-12)
+
+           Mussig - Céleri       Mussig       Céleri     09/04/2024   2 à 3 feuilles (BBCH 12-13)
+
+
+Un piège est constitué de 3 plaques engluées, disposées entre 5 à 10 mètres les uns des autres.
+
+
+       2  Mouche de la carotte
+
+
+                   a. Observations
+
+
+Cette semaine, 1 individu a été capturé à Mussig sur céleri. Le dernier piège en Alsace et ceux en Champagne n’ont
+n’ont pas encore été installés.
+
+
+
+
+
+                  b. Seuil indicatif de risque
+
+
+Le seuil indicatif de risque est atteint quand une mouche est piégée en moyenne sur chacune des plaques engluées.
+Ramené à un nombre de mouches par jour, le seuil indicatif de risque est de 0,14.
+
+
+                     c. Analyse de risque
+
+
+Le seuil n’est pas atteint cette semaine. Les conditions ne seront pas très favorables avec le vent et la fraicheur.
+
+
+
+
+
+                                                                               BSV 1 – P.7
+
+--- PAGE 8 ---
+d. Gestion alternative du risque
+
+
+ -   Le sol humide favorise les pontes. Le risque est moins important sur les parcelles non irriguées car un grand
+    nombre d’œufs se dessèchent.
+ -   La mise en place de filets anti-insectes et/ou le décalage des semis permettent d’éviter les pontes.
+ -   Les bâches de forçage constituent une barrière efficace contre les attaques de mouches dans les parcelles de
+     céleri précoces.
+
+
+       3   Septoriose
+
+
+                   a. Observations
+
+
+Il n’y a pas d’attaque de septoriose qui a été observée pour l’instant.
+
+
+                  b. Seuil indicatif de risque
+
+
+Le modèle de calcul du risque Septocel (Septoriose du céleri de la DGAL sur la plateforme INOKI du CTIFL) a été validé
+sur céleri en France. Afin d'initier le démarrage du modèle, la date de repiquage est fixée au 1er mars. Une prévision
+du risque est calculée sur 5 jours à partir des données des stations météo de Muttersholtz, Duttlenheim, Valff et
+Sainte Croix en Plaine. Les données indiquent un risque nul actuellement.
+
+
+                     c. Analyse de risque
+
+
+Aucune contamination en cours. Le risque est nul avant la troisième génération.
+
+
+
+
+
+                                                                               BSV 1 – P.8
+
+--- PAGE 9 ---
+CHOUX
+
+
+          1  Stades phénologiques
+
+
+Le réseau est constitué d’une parcelle à ce jour.
+
+ Nom de la parcelle   Lieu (n° département)   Culture                 Plantation    Stade
+
+ Innenheim         Innenheim (67)         Choux à inflorescence   28/03/2024   5-6 feuilles (BBCH 15-16)
+
+
+          2  Lépidoptères
+
+
+                   a. Observations
+
+
+Teigne : des vols assez importants pour la période ont été recensés sur la parcelle (50 captures faites la première
+semaine). La météo de la semaine passée a pu favoriser les adultes. Aucune larve ni dégât observés.
+
+
+Noctuelle : aucune capture ni observation.
+
+
+                  b. Seuil indicatif de risque
+
+
+Les vols sont à observer toutes les semaines et à corréler avec une présence éventuelle de pontes ou de jeunes larves.
+En conditions normales, les adultes peuvent pondre dès l’accouplement et les œufs peuvent éclore sous 5 à 7 jours
+pour la teigne.
+
+
+                     c. Analyse de risque
+
+
+Les conditions climatiques des prochains jours ne favorisent pas les vols : le temps sera pluvieux et les températures
+fraîches. L’évolution du vol de la teigne est toutefois à surveiller.
+
+
+
+
+
+                  d. Gestion alternative du risque
+
+
+Contrôle des adventices de la famille des crucifères et des déchets de cultures de choux précédentes qui favorisent
+la présence des teignes adultes.
+Pose de filet anti-insectes, à installer sur cultures avant l’arrivée des adultes et des pontes.
+
+
+                    Biocontrôle :  les  Bt  agissent  sur jeunes  chenilles par  ingestion.  Etant
+                    photosensibles et lessivables, il est important de l’appliquer lors de journées
+                    couvertes ou en soirée et en dehors des pluies.
+
+
+
+
+
+                                                                               BSV 1 – P.9
+
+--- PAGE 10 ---
+3  Autres bioagresseurs
+
+
+Altises : présence d’adultes relevée la semaine dernière. La pression peut subvenir rapidement et précocement dans
+les cultures, notamment si plants non protégés. Les dégâts sont encore peu importants.
+
+
+Grands ravageurs : des dégâts de lièvres ou lapins sont recensés sur la parcelle : des plants sont arrachés ou mangés
+sont visibles sur l’ensemble des lignes (< 5 %).
+
+
+
+
+
+                                                                               BSV 1 – P.10
+
+--- PAGE 11 ---
+OIGNON
+
+
+       1   Stades phénologiques
+
+
+Le réseau est constitué d’une parcelle d’oignon jaune de semis pour la saison 2024.
+
+
+      Nom parcelle     Lieu         Culture                 Implantation    Stade
+
+        Oignon          Obernai     Oignon jaune de semis   07/04/2024    BBCH 05 à BBCH 07
+
+
+Les conditions climatiques ont fortement compliqué les chantiers de semis des
+oignons et échalotes. La majorité des surfaces ont cependant pu être mises en terre
+avant le 15 avril. En fonction du type de sol et des dates de semis, les stades vont de
+semence sèche à 1 feuille vraie. Au sein du réseau, les oignons devraient émerger
+courant de  la semaine prochaine. Les précipitations ont permis d’obtenir des
+conditions de levée homogènes sur les semis datant de mars à début avril. En
+revanche ? l’augmentation des températures du week-end couplée aux conditions
+venteuses dessèchent vite les premiers centimètres du sol, or la semence d’oignon
+doit être dans l’humidité pour pouvoir germer. En cas de précipitations trop faibles,      Oignon en cours de levée
+des levées hétérogènes sur les derniers semis sont à prévoir. Dans la parcelle du              (A. CLAUDEL)
+réseau des levées d’adventices au stade cotylédons à 1 feuille sont observées pour le
+moment (chénopodes, mercuriales et renouées liseron en majorité).
+
+
+       2   Mildiou
+
+
+                   a. Observations
+
+
+Le stade des semis de printemps est trop peu avancé pour le moment. En revanche,
+du mildiou est détecté depuis quelques semaines sur oignon d’hiver (oignon
+japonais et oignon botte) en pleine bulbaison. Les températures supérieures à 25
+°C du week-end vont permettre de limiter l’expansion de la maladie mais les
+conditions climatiques sont à nouveau favorables au pathogène.
+
+                                                                                                Mildiou sur oignon d’hiver
+                  b. Seuil indicatif de risque                                                (A. CLAUDEL)
+
+
+Sur semis de printemps, il n’y a pas de risque avant le stade 2 feuilles de la culture et la 2ème génération de mildiou.
+
+
+Le cycle de développement du mildiou est constitué de 3 phases :
+ -    la sporulation : conditions requises la veille = température < 25°C, hygrométrie > 95 %, pluie < 1 mm.
+ -    la contamination : le jour même de la sporulation (dispersion des spores) et si l’hygrométrie est suffisante la
+     nuit.
+ -   l’incubation : temps entre la contamination et les prochaines sorties de taches = 10 jours à 15-17°C.
+
+
+
+
+
+                                                                               BSV 1 – P.11
+
+--- PAGE 12 ---
+c. Analyse de risque
+
+
+Sur semis de printemps, le risque est faible actuellement à ce stade de la culture. En revanche, il est moyen à élevé
+sur culture d’hiver.
+
+
+
+
+                  d. Gestion alternative du risque
+
+  •   Maîtriser les adventices pour ne pas augmenter l’hygrométrie, favorable au développement de la maladie.
+  •   Fertilisation : l’excès d’azote fragilise les plantes et privilégie une végétation abondante.
+  •   Assurer une rotation de 4 à 5 ans minimum (conservation du champignon dans le sol).
+  •   Gestion des déchets : pas de tas de déchet à proximité, éliminer les plantes infectées.
+  •   Plantation et semis : éviter les densités de peuplement trop élevées.
+
+
+       3   Thrips
+
+
+                   a. Observations
+
+
+Dans la parcelle du réseau, aucun individu n’a été détecté. Sur culture hivernée, des individus et des dégâts sont
+observés en faible proportion.
+
+
+                  b. Seuil indicatif de risque
+
+
+Sur oignon de garde, le risque est limité, le feuillage n’étant pas récolté et les populations sont généralement
+maintenues par les irrigations ou les pluies. Sur oignon de printemps (oignon botte), les traces de nutritions ne sont
+pas tolérées et peuvent entraîner une dépréciation commerciale.
+
+
+                     c. Analyse de risque
+
+
+Compte tenu des conditions météorologiques, le risque est faible sur les semis de printemps des oignons de garde.
+Le premier vol est prévu par la modèle DGAL sur INOKI autour du 23 mai.
+
+
+
+
+
+                  d. Gestion alternative du risque
+
+  •  Pose de filets anti-insectes avant le début du vol, leur efficacité reste cependant limitée contre les thrips :
+      http://www.planete-legumes.fr/wp-content/uploads/2016/12/Guide-technique-filets-anti-insectes.pdf.
+  •   Biocontrôle : utilisation de desséchants (dessication de la cuticule des insectes à corps mou). Voir liste des
+      produits disponibles (lien en première page).
+
+
+
+                                                                               BSV 1 – P.12
+
+--- PAGE 13 ---
+POMME DE TERRE
+
+
+       1   Stades phénologiques
+
+
+Le réseau a été mis en place en partie cette semaine sur 6 parcelles.
+
+    Variété et type        Lieu (n° département)    Culture                     Stade
+
+    Agria (AB)               Valff (67)                 Chair ferme conservation     Non levée
+
+   Adora               Baldenheim (67)        Consommation conservation   1-3 feuilles (BBCH 11-13)
+
+   Adora (AB)            Volgelsheim (68)                                      1-3 feuilles (BBCH 11-13)
+
+   Adora                 Stetten (68)            Consommation précoce      Non levée
+
+   Adora               Grussenheim (68)       Consommation précoce       1-3 feuilles (BBCH 11-13)
+
+   Adora               Burnhaupt le Haut (68)   Consommation précoce      Non levée
+
+
+Les premières plantations de primeurs ont eu lieu début mars après un hiver pluvieux et doux, excepté une période
+froide avec des gelées mi-janvier. Les suivantes fin mars à mi-avril selon le ressuyage des parcelles, suivies de celles
+des variétés de conservation, qui se poursuivent. Les premières levées ont eu lieu début avril en culture bâchée.
+
+
+       2   Pucerons
+
+
+                   a. Observations
+
+Des larves de pucerons verts ont été observés sur la parcelle de Grussenheim.
+Des auxiliaires comme des araignées, des pontes de syrphes sont également
+présents.
+
+
+                  b. Seuil indicatif de risque
+
+
+Le seuil indicatif de risque est de 50 % des folioles avec présence d’une larve au moins sur 40 folioles.
+
+
+                     c. Analyse de risque
+
+
+Les conditions plus fraiches et venteuses ne sont pas favorables pour la semaine à venir.
+
+
+
+
+
+                  d. Gestion alternative du risque
+
+
+ -   La mise en place de filets anti-insectes et/ou un paillage avant levée permettent d’éviter les pontes.
+ -   Les bâches de forçage constituent une barrière efficace contre les vols de pucerons dans les parcelles primeurs.
+ -   La gestion des adventices autour des parcelles limite fortement le risque d’introduction des pucerons.
+ -  Une forte fertilisation azotée augmente la sensibilité des plantes aux pucerons. Les auxiliaires présents
+    naturellement dans la parcelle peuvent maîtriser efficacement la population de pucerons, à condition qu’ils
+     soient suffisamment développés au moment où survient le risque.
+ Consulter la fiche des techniques de lutte alternative sur pucerons.
+                                                                               BSV 1 – P.13
+
+--- PAGE 14 ---
+LAITUE
+
+
+       1   Stades phénologiques
+
+
+Le réseau est pour le moment composé de 2 parcelles en Lorraine, dans les secteurs de Nancy Nord et de Toul. Les
+changements brutaux de températures de ces derniers jours rendent le risque de gel possible. Il faut rester prudent
+sur les températures nocturnes en plein champ particulièrement (laitue encore sous P17 jusqu’à au moins la semaine
+prochaine).
+
+ Lieu (n° département)     Culture     Implantation    Stade
+
+                                                     Stade récolte sous abri : taille finale (BBCH 49)
+                            Laitue PC
+ Secteur Nancy Nord (54)             Début mars     Stade pré-récolte en plein champ, 90 % de la taille finale
+                            et Abri
+                                               (BBCH 49)
+
+                                   S10            Stade développement de la pomme, 50 % de la taille
+                                                                finale (BBCH 45)
+ Secteur Toul (54)           Laitue PC   S13            Stade développement de  la pomme, début de  la
+                                                     formation des têtes (BBCH 41)
+                                   S15            Stade 9-10 feuilles (BBCH 19-20)
+
+
+       2   Bioagresseurs
+
+
+                   a. Observations
+
+
+Pas de pression en puceron observée pour le moment en laitue, notamment en plein champ, l’humidité et le froid
+leur sont très défavorables. A contrario, grosse pression en limaces, qui peut faire des dégâts importants.
+
+
+                  b. Seuil indicatif de risque
+
+
+Pas de seuil connu. Le seuil indicatif de risque est lié à la présence de pucerons dans les feuilles, appréciée selon l’état
+à la récolte, qui entraine le déclassement ou la destruction de la plante.
+
+
+                     c. Analyse de risque
+
+
+Pas d’individus observés, risque actuel pour les cultures sont très faible. Absence de pucerons sur les premières
+récoltes. Risque faible mais risque d’aller en augmentant progressivement avec une remontée des températures
+(l’hiver ayant été relativement chaud). Période propice mais températures encore basses pour la semaine à venir.
+
+
+
+
+
+                  d. Gestion alternative du risque
+
+
+Une forte  fertilisation azotée augmente  la  sensibilité des plantes aux pucerons. Les  auxiliaires présents
+naturellement dans la parcelle peuvent maîtriser efficacement la population de pucerons, à condition qu’ils soient
+suffisamment développés au moment où survient le risque.
+
+                                                                               BSV 1 – P.14
+
+--- PAGE 15 ---
+SOLANACÉES ET CUCURBITACÉES SOUS ABRI
+
+
+       1   Stades phénologiques
+
+
+Le réseau est pour le moment constitué d’une parcelle en Loraine, dans les secteurs de Toul, il s’agit d’une parcelle
+de tomate. Les plantations sont encore en cours pour les tomates mais la vague de froid actuelle vient retarder la
+suite des plantations à la fin de la semaine prochaine du fait des risques éventuels de gel en fin de semaine. Les
+plantations d’aubergines, de poivrons et de courgettes ne commenceront pas avant la fin de la semaine prochaine
+au plus tôt. Celles des concombres aux alentours du 10 mai.
+
+
+ Lieu (n° département)   Culture      Date de plantation   Stade
+
+ Toul (54)             Tomate     Début avril (S15)    Développement des feuilles 3 à 4 (BBCH 14)
+
+
+       2   Pucerons
+
+
+                   a. Observations
+
+
+Pas d’observation de puceron pour le moment, les cultures ont été implantées un
+peu tôt pour que cela soit le cas. Qui plus est, le froid actuel n’est pas trop propice
+à leur implantation et à leur développement sous abri froid.
+
+
+                                                                                             Cas d’une forte pression en
+                  b. Seuil indicatif de risque                                pucerons sur morelle à la mise
+                                                                                     en culture (M. PAOLUCCI)
+
+Pas de seuil connu. Le seuil indicatif de risque est lié à la présence de pucerons dans les feuilles, et de viroses qui
+entrainent le déclassement ou la destruction du fruit.
+
+
+                     c. Analyse de risque
+
+
+Pas d’individus observés, le risque actuel pour les cultures est très faible du fait des conditions climatiques actuelles
+et de l’implantation très récente de la culture. Risque faible mais qui risque d’augmenter progressivement avec une
+remontée des températures (l’hiver ayant été relativement chaud). Période propice mais températures encore
+basses pour la semaine à venir.
+
+
+
+
+
+                  d. Gestion alternative du risque
+
+
+La gestion des adventices autour des parcelles limite fortement le risque d’introduction des pucerons.
+Une forte fertilisation azotée augmente la sensibilité des plantes aux pucerons. Les auxiliaires présents naturellement
+dans la parcelle peuvent maîtriser efficacement la population de pucerons, à condition qu’ils soient suffisamment
+développés au moment où survient le risque.
+Il est également recommandé d'inspecter les jeunes plants avant leur introduction sous les abris au moment de la
+réception, car il est parfois possible que l’infestation soit déjà présente dès leur réception.
+                                                                               BSV 1 – P.15
+
+--- PAGE 16 ---
+Ce bulletin est produit à partir d'observations ponctuelles réalisées sur un réseau de parcelles. S'il donne une tendance de la
+              situation sanitaire régionale, celle-ci ne peut pas être transposée telle quelle à chacune des parcelles.
+
+Observations : Gustave Muller, PLANETE Légumes Fleurs et Plantes.
+
+
+Rédaction : PLANETE Légumes Fleurs et Plantes.
+
+Bulletin édité sous la responsabilité de la Chambre Régionale d’Agriculture Grand Est.
+Dans une démarche d'amélioration continue de qualité de la surveillance biologique du territoire, la DRAAF assure un contrôle de
+second niveau sur l'ensemble du processus d'élaboration des BSV.
+
+Coordination et renseignements : Joliane BRAILLARD - joliane.braillard@grandest.chambagri.fr
+
+
+
+                      "Action pilotée par le Ministère chargé de l'agriculture et le Ministère de l’Ecologie, avec l’appui financier de l’Office Français de
+                          la Biodiversité, par les crédits issus de la redevance pour pollutions diffuses attribués au financement du plan Ecophyto II+".
+                                                                           BSV 1 – P.16
+
+--- PAGE 17 ---
+Note biodiversité
+
+
+
+
+
+                                                                               BSV 1 – P.17
+
+--- PAGE 18 ---
+BSV 1 – P.18

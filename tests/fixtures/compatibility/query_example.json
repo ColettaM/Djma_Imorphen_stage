@@ -1,0 +1,19 @@
+{
+  "image_id": "tomate_test_001.jpg",
+  "date_observation": "2025-06-28",
+  "region": "Pays de la Loire",
+  "top_k": [
+    {
+      "classe": "late_blight",
+      "score": 0.82
+    },
+    {
+      "classe": "leaf_mold",
+      "score": 0.11
+    },
+    {
+      "classe": "healthy",
+      "score": 0.04
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+[
+  {
+    "image_id": "test_pdl_mildiou",
+    "date_observation": "2025-07-17",
+    "region": "Pays de la Loire",
+    "top_k": [
+      {
+        "classe": "late_blight",
+        "score": 0.94
+      },
+      {
+        "classe": "septoria_leaf_spot",
+        "score": 0.04
+      },
+      {
+        "classe": "healthy",
+        "score": 0.02
+      }
+    ]
+  },
+
+  {
+    "image_id": "test_pdl_acariens",
+    "date_observation": "2025-08-07",
+    "region": "Pays de la Loire",
+    "top_k": [
+      {
+        "classe": "spider_mites_two_spotted_spider_mite",
+        "score": 0.88
+      },
+      {
+        "classe": "leaf_mold",
+        "score": 0.08
+      },
+      {
+        "classe": "healthy",
+        "score": 0.04
+      }
+    ]
+  },
+
+  {
+    "image_id": "test_ge_cladosporiose",
+    "date_observation": "2025-08-14",
+    "region": "Grand Est",
+    "top_k": [
+      {
+        "classe": "leaf_mold",
+        "score": 0.82
+      },
+      {
+        "classe": "late_blight",
+        "score": 0.12
+      },
+      {
+        "classe": "healthy",
+        "score": 0.06
+      }
+    ]
+  },
+
+  {
+    "image_id": "test_ge_oidium_like",
+    "date_observation": "2025-06-20",
+    "region": "Grand Est",
+    "top_k": [
+      {
+        "classe": "leaf_mold",
+        "score": 0.45
+      },
+      {
+        "classe": "septoria_leaf_spot",
+        "score": 0.30
+      },
+      {
+        "classe": "late_blight",
+        "score": 0.25
+      }
+    ]
+  },
+
+  {
+    "image_id": "test_hors_saison",
+    "date_observation": "2025-01-15",
+    "region": "Pays de la Loire",
+    "top_k": [
+      {
+        "classe": "late_blight",
+        "score": 0.70
+      },
+      {
+        "classe": "healthy",
+        "score": 0.20
+      },
+      {
+        "classe": "leaf_mold",
+        "score": 0.10
+      }
+    ]
+  },
+
+  {
+    "image_id": "test_healthy",
+    "date_observation": "2025-09-04",
+    "region": "Pays de la Loire",
+    "top_k": [
+      {
+        "classe": "healthy",
+        "score": 0.91
+      },
+      {
+        "classe": "late_blight",
+        "score": 0.06
+      },
+      {
+        "classe": "septoria_leaf_spot",
+        "score": 0.03
+      }
+    ]
+  }
+]
