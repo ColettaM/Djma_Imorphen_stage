@@ -10,7 +10,7 @@ FIXTURES_DIR = PROJECT_ROOT / "tests" / "fixtures" / "observations"
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-import extract_observations
+import extract_observations  # noqa: E402
 
 
 class ObservationHelpersTests(unittest.TestCase):
@@ -161,10 +161,7 @@ class PaysDeLaLoireTableTests(unittest.TestCase):
             / "page_07_table_2.csv"
         )
         rows = extract_observations.extract_pays_de_la_loire_table(table, root)
-        by_culture = {
-            row.culture: row.observation
-            for row in rows
-        }
+        by_culture = {row.culture: row.observation for row in rows}
 
         self.assertEqual(set(by_culture), {"tomate", "aubergine", "poivron"})
         self.assertIn("tomates", by_culture["tomate"])
@@ -215,7 +212,10 @@ class PaysDeLaLoire2023NarrativeTests(unittest.TestCase):
         self.assertEqual(matches[0].type, "maladie")
         self.assertIn("10%", matches[0].observation)
         self.assertFalse(
-            any("INDIQUE" in extract_observations.normalize(row.bioagresseur) for row in rows)
+            any(
+                "INDIQUE" in extract_observations.normalize(row.bioagresseur)
+                for row in rows
+            )
         )
 
     def test_extracts_flash_tomato_mildew(self) -> None:

@@ -178,9 +178,7 @@ class TemplateProfileIntegrationTests(unittest.TestCase):
         return bulletin
 
     def test_pdl_2023_bilan(self) -> None:
-        bulletin = self.extract(
-            "pdl/maraichage/2023/BSV_maraichage_no_04_20230330.txt"
-        )
+        bulletin = self.extract("pdl/maraichage/2023/BSV_maraichage_no_04_20230330.txt")
 
         self.assertEqual(bulletin.template_id, "pdl_2023_bilan")
         self.assertEqual(bulletin.nature_meteo, "bilan_tendance")
@@ -192,9 +190,7 @@ class TemplateProfileIntegrationTests(unittest.TestCase):
         self.assertNotIn("ABONNEMENT BSV", bulletin.prevision_meteo)
 
     def test_pdl_2024_prevision(self) -> None:
-        bulletin = self.extract(
-            "pdl/maraichage/2024/BSV_maraichage_no_06_20240419.txt"
-        )
+        bulletin = self.extract("pdl/maraichage/2024/BSV_maraichage_no_06_20240419.txt")
 
         self.assertEqual(bulletin.template_id, "pdl_2024_prevision")
         self.assertEqual(bulletin.meteo_extraction_status, "lisible")
@@ -205,9 +201,7 @@ class TemplateProfileIntegrationTests(unittest.TestCase):
         self.assertLess(len(bulletin.prevision_meteo.split()), 150)
 
     def test_pdl_2025_prevision_risque(self) -> None:
-        bulletin = self.extract(
-            "pdl/maraichage/2025/BSV_maraichage_no_07_20250403.txt"
-        )
+        bulletin = self.extract("pdl/maraichage/2025/BSV_maraichage_no_07_20250403.txt")
 
         self.assertEqual(bulletin.template_id, "pdl_2025_prevision_risque")
         self.assertEqual(bulletin.nature_meteo, "prevision")

@@ -16,16 +16,14 @@ import sys
 import unicodedata
 from collections import defaultdict
 from dataclasses import dataclass
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BULLETINS_FILE = PROJECT_ROOT / "data" / "processed" / "bsv_bulletins.csv"
-DEFAULT_OBSERVATIONS_FILE = (
-    PROJECT_ROOT / "data" / "processed" / "bsv_observations.csv"
-)
+DEFAULT_OBSERVATIONS_FILE = PROJECT_ROOT / "data" / "processed" / "bsv_observations.csv"
 DEFAULT_REFERENTIAL_FILE = PROJECT_ROOT / "data" / "raw" / "referentiel_cnn_bsv.csv"
 DEFAULT_OUTPUT_FILE = PROJECT_ROOT / "data" / "processed" / "bsv_compatibility.csv"
 
@@ -179,7 +177,9 @@ def read_dicts_auto(path: Path, delimiter: str | None = None) -> list[dict[str, 
                         reader = csv.DictReader(handle, dialect=dialect)
                     except csv.Error:
                         header = sample.splitlines()[0] if sample else ""
-                        fallback_delimiter = ";" if header.count(";") > header.count(",") else ","
+                        fallback_delimiter = (
+                            ";" if header.count(";") > header.count(",") else ","
+                        )
                         reader = csv.DictReader(handle, delimiter=fallback_delimiter)
                 else:
                     reader = csv.DictReader(handle, delimiter=delimiter)
@@ -212,9 +212,7 @@ def get_column(row: dict[str, str], normalized_name: str) -> str:
 
 def split_terms(value: str) -> set[str]:
     return {
-        normalize(term)
-        for term in re.split(r"[;|,]", value or "")
-        if normalize(term)
+        normalize(term) for term in re.split(r"[;|,]", value or "") if normalize(term)
     }
 
 
@@ -235,7 +233,9 @@ def load_referential_entries(rows: list[dict[str, str]]) -> list[ReferentialEntr
         entries.append(
             ReferentialEntry(
                 classe_dataset=classe_dataset,
-                cultures_concernees=frozenset(split_terms(get_column(row, "cultures_concernees"))),
+                cultures_concernees=frozenset(
+                    split_terms(get_column(row, "cultures_concernees"))
+                ),
                 nom_fr=nom_fr,
                 agent=agent,
                 synonymes=frozenset(synonymes),
@@ -269,22 +269,21 @@ def resolve_observation(
     ]
 
     if not matching_entries:
-        return "", "", "non_resolu", "aucune correspondance bioagresseur dans le referentiel"
+        return (
+            "",
+            "",
+            "non_resolu",
+            "aucune correspondance bioagresseur dans le referentiel",
+        )
 
     direct_matches = [
-        entry
-        for entry in matching_entries
-        if culture_norm in entry.cultures_concernees
+        entry for entry in matching_entries if culture_norm in entry.cultures_concernees
     ]
     if direct_matches:
         entry = direct_matches[0]
         return entry.agent, entry.classe_dataset, "resolved_direct", ""
 
-    host_matches = [
-        entry
-        for entry in matching_entries
-        if culture_norm in entry.hotes
-    ]
+    host_matches = [entry for entry in matching_entries if culture_norm in entry.hotes]
     if host_matches:
         entry = host_matches[0]
         return entry.agent, entry.classe_dataset, "resolved_hote_associe", ""
@@ -306,7 +305,9 @@ def enrich_observations_with_resolution(
     for observation in observations:
         row = dict(observation)
         if not row.get("resolution_status"):
-            agent, classe_dataset, status, comment = resolve_observation(row, referential)
+            agent, classe_dataset, status, comment = resolve_observation(
+                row, referential
+            )
             row["agent_resolu"] = agent
             row["classe_dataset"] = classe_dataset
             row["resolution_status"] = status
@@ -336,10 +337,14 @@ def load_queries(path: Path) -> list[CompatibilityQuery]:
             elif isinstance(prediction, (list, tuple)) and len(prediction) == 2:
                 classe, score = prediction
             else:
-                raise ValueError(f"Invalid Top-K prediction in query #{index}: {prediction!r}")
+                raise ValueError(
+                    f"Invalid Top-K prediction in query #{index}: {prediction!r}"
+                )
 
             if not classe or score is None:
-                raise ValueError(f"Prediction requires classe and score in query #{index}")
+                raise ValueError(
+                    f"Prediction requires classe and score in query #{index}"
+                )
             predictions.append(Prediction(str(classe), float(score)))
 
         if not predictions:
@@ -374,7 +379,9 @@ def seasonal_window_for(region: str, year: int) -> tuple[date, date] | None:
     return start_day, end_day
 
 
-def is_in_season(region: str, observation_date: date) -> tuple[bool, tuple[date, date] | None]:
+def is_in_season(
+    region: str, observation_date: date
+) -> tuple[bool, tuple[date, date] | None]:
     window = seasonal_window_for(region, observation_date.year)
     return bool(window and window[0] <= observation_date <= window[1]), window
 
@@ -448,17 +455,16 @@ def trouver_bulletin_retenu(
         return None
 
     selected = eligible[-1]
-    if date_observation - selected["date_bulletin_parsed"] > timedelta(days=max_age_days):
+    if date_observation - selected["date_bulletin_parsed"] > timedelta(
+        days=max_age_days
+    ):
         return None
 
     return selected
 
 
 def contains_any(text_norm: str, terms: set[str]) -> bool:
-    return any(
-        re.search(rf"\b{re.escape(term)}\b", text_norm)
-        for term in terms
-    )
+    return any(re.search(rf"\b{re.escape(term)}\b", text_norm) for term in terms)
 
 
 def extraire_meteo_favorable(
@@ -615,7 +621,10 @@ def appliquer_regle_decision(
         return "Indetermine", "date hors saison regionale"
 
     if not bulletin_present:
-        return "Indetermine", "aucun bulletin disponible dans les 7 jours precedant la date"
+        return (
+            "Indetermine",
+            "aucun bulletin disponible dans les 7 jours precedant la date",
+        )
 
     if not agent_couvert_corpus:
         return "Indetermine", "classe CNN jamais couverte dans le corpus resolu"
@@ -661,10 +670,16 @@ def appliquer_regle_decision(
         if meteo_status == "defavorable" and base_status == "Coherent":
             return "Partiel", reason + "; meteo defavorable"
 
-        return base_status or "Indetermine", reason or "combinaison de signaux non couverte"
+        return (
+            base_status or "Indetermine",
+            reason or "combinaison de signaux non couverte",
+        )
 
     if not direct_tomato_rows_bulletin and not tomato_compatible_rows_bulletin:
-        return "Indetermine", "aucun signal tomate direct ou hote associe dans le bulletin retenu"
+        return (
+            "Indetermine",
+            "aucun signal tomate direct ou hote associe dans le bulletin retenu",
+        )
 
     return (
         "Non_corrobore",
@@ -672,7 +687,9 @@ def appliquer_regle_decision(
     )
 
 
-def evaluer_requete(query: CompatibilityQuery, data: EngineData) -> list[dict[str, Any]]:
+def evaluer_requete(
+    query: CompatibilityQuery, data: EngineData
+) -> list[dict[str, Any]]:
     bulletin = trouver_bulletin_retenu(
         data.bulletins_by_region,
         query.region,
@@ -686,14 +703,10 @@ def evaluer_requete(query: CompatibilityQuery, data: EngineData) -> list[dict[st
         else []
     )
     direct_tomato_rows = [
-        row
-        for row in bulletin_rows
-        if est_observation_tomate_directe(row)
+        row for row in bulletin_rows if est_observation_tomate_directe(row)
     ]
     tomato_compatible_rows = [
-        row
-        for row in bulletin_rows
-        if est_signal_tomate_compatible(row)
+        row for row in bulletin_rows if est_signal_tomate_compatible(row)
     ]
     output_rows: list[dict[str, Any]] = []
 
@@ -709,11 +722,12 @@ def evaluer_requete(query: CompatibilityQuery, data: EngineData) -> list[dict[st
         meteo_bool, meteo_status = extraire_meteo_favorable(
             bulletin.get("prevision_meteo", "") if bulletin else "",
             prediction.classe,
-            bulletin.get("meteo_extraction_status", "lisible") if bulletin else "absente",
+            bulletin.get("meteo_extraction_status", "lisible")
+            if bulletin
+            else "absente",
         )
-        agent_couvert = (
-            prediction.classe in data.covered_classes
-            or bool(agent and normalize(agent) in data.covered_agents)
+        agent_couvert = prediction.classe in data.covered_classes or bool(
+            agent and normalize(agent) in data.covered_agents
         )
 
         compatibility, reason = appliquer_regle_decision(
@@ -728,7 +742,11 @@ def evaluer_requete(query: CompatibilityQuery, data: EngineData) -> list[dict[st
         )
 
         statuses = sorted(
-            {row.get("resolution_status", "") for row in agent_rows if row.get("resolution_status", "")}
+            {
+                row.get("resolution_status", "")
+                for row in agent_rows
+                if row.get("resolution_status", "")
+            }
         )
         output_rows.append(
             {
@@ -738,7 +756,9 @@ def evaluer_requete(query: CompatibilityQuery, data: EngineData) -> list[dict[st
                 "classe_cnn": prediction.classe,
                 "score_cnn": prediction.score,
                 "agent_referentiel": agent,
-                "bulletin_id_retenu": bulletin.get("bulletin_id", "") if bulletin else "",
+                "bulletin_id_retenu": bulletin.get("bulletin_id", "")
+                if bulletin
+                else "",
                 "date_bulletin_retenu": (
                     bulletin["date_bulletin_parsed"].isoformat() if bulletin else ""
                 ),
@@ -766,11 +786,7 @@ def main() -> int:
             args.referential_file.resolve(),
         )
         queries = load_queries(args.query_file.resolve())
-        rows = [
-            row
-            for query in queries
-            for row in evaluer_requete(query, data)
-        ]
+        rows = [row for query in queries for row in evaluer_requete(query, data)]
         write_csv(args.output_file.resolve(), rows)
     except Exception as exc:
         print(f"ERROR: {exc}", file=sys.stderr)

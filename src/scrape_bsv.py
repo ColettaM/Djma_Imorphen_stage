@@ -28,7 +28,7 @@ from urllib3.util.retry import Retry
 # CONFIGURATION
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-OUTPUT_ROOT= PROJECT_ROOT / "data" / "raw" / "bsv_pdf"
+OUTPUT_ROOT = PROJECT_ROOT / "data" / "raw" / "bsv_pdf"
 DEFAULT_LOG_FILE = PROJECT_ROOT / "outputs" / "logs" / "scrape_bsv.log"
 LOGGER = logging.getLogger("scrape_bsv")
 
@@ -40,7 +40,7 @@ HEADERS = {
     )
 }
 
-PAUSE_BETWEEN_DOWNLOADS = 1.5   # secondes entre chaque téléchargement
+PAUSE_BETWEEN_DOWNLOADS = 1.5  # secondes entre chaque téléchargement
 
 # SOURCES — structure déclarative
 # Chaque source est un dict :
@@ -94,11 +94,7 @@ SOURCES = [
 ]
 
 ALL_FILIERE_IDS = sorted(
-    {
-        filiere["filiere_id"]
-        for source in SOURCES
-        for filiere in source["filieres"]
-    }
+    {filiere["filiere_id"] for source in SOURCES for filiere in source["filieres"]}
 )
 
 
@@ -153,8 +149,10 @@ def is_valid_pdf_file(path: Path) -> bool:
     with path.open("rb") as handle:
         return b"%PDF-" in handle.read(1024)
 
+
 # COLLECTE DES LIENS PDF
- 
+
+
 def fetch_page(url: str, session: requests.Session) -> BeautifulSoup | None:
     """Récupère une page HTML et retourne un objet BeautifulSoup."""
     LOGGER.info("FETCH_PAGE | url=%s", url)
@@ -201,6 +199,7 @@ def extract_pdf_links(soup: BeautifulSoup, base_url: str) -> list[tuple[str, str
 
 
 # TÉLÉCHARGEMENT
+
 
 def download_pdf(
     url: str,
@@ -265,6 +264,7 @@ def download_pdf(
 
 # PIPELINE PRINCIPAL
 
+
 def run(
     annees: list[int],
     source_ids: list[str],
@@ -272,7 +272,6 @@ def run(
     dry_run: bool,
     output_root: Path,
 ) -> None:
-
     LOGGER.info(
         "RUN_START | annees=%s | sources=%s | filieres=%s | dry_run=%s | output=%s",
         annees,
@@ -382,6 +381,7 @@ def run(
 
 
 # CLI
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(

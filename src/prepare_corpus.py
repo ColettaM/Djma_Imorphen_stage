@@ -17,6 +17,7 @@ Fonctionnalités principales :
 Aucun fichier n'est supprimé : les documents exclus sont uniquement signalés
 dans le manifeste.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -32,7 +33,9 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT_DIR = PROJECT_ROOT / "data" / "raw" / "bsv_pdf"
 DEFAULT_MANIFEST_FILE = PROJECT_ROOT / "data" / "processed" / "bsv_corpus_manifest.csv"
-DEFAULT_EXPLOITABLE_LIST = PROJECT_ROOT / "data" / "processed" / "bsv_corpus_exploitable.txt"
+DEFAULT_EXPLOITABLE_LIST = (
+    PROJECT_ROOT / "data" / "processed" / "bsv_corpus_exploitable.txt"
+)
 
 MANIFEST_COLUMNS = [
     "relative_path",
@@ -55,10 +58,10 @@ MANIFEST_COLUMNS = [
 
 
 def parse_args() -> argparse.Namespace:
-    """ 
-      Définition des arguments de ligne de commande :
-       dossier contenant les PDF BSV téléchargés ; fichier manifeste de sortie ;
-       liste des PDF exploitables ; dossier optionnel de copie du corpus exploitable.
+    """
+    Définition des arguments de ligne de commande :
+     dossier contenant les PDF BSV téléchargés ; fichier manifeste de sortie ;
+     liste des PDF exploitables ; dossier optionnel de copie du corpus exploitable.
     """
     parser = argparse.ArgumentParser(
         description="Classify, hash and filter downloaded BSV PDFs without deleting them."
@@ -80,7 +83,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def normalize(value: str) -> str:
-    """ Normalise une chaîne de caractères """
+    """Normalise une chaîne de caractères"""
     value = unicodedata.normalize("NFKD", value or "")
     value = "".join(char for char in value if not unicodedata.combining(char))
     value = value.lower()
@@ -89,7 +92,7 @@ def normalize(value: str) -> str:
 
 
 def classify_document(filename: str) -> str:
-    """ Détermine le type de document à partir de son nom """
+    """Détermine le type de document à partir de son nom"""
     key = normalize(Path(filename).stem)
 
     if "catalogue" in key and "formation" in key:
@@ -104,7 +107,7 @@ def classify_document(filename: str) -> str:
 
 
 def extract_date_from_filename(filename: str) -> str:
-    """ Recherche une date au format AAAAMMJJ dans le nom du fichier."""
+    """Recherche une date au format AAAAMMJJ dans le nom du fichier."""
     match = re.search(r"(?<!\d)(20\d{2})(\d{2})(\d{2})(?!\d)", filename)
     if not match:
         return ""
@@ -113,7 +116,7 @@ def extract_date_from_filename(filename: str) -> str:
 
 
 def extract_bulletin_number(filename: str) -> str:
-    """ Recherche le numéro du bulletin dans le nom du fichier. """
+    """Recherche le numéro du bulletin dans le nom du fichier."""
     key = normalize(Path(filename).stem)
     patterns = (
         r"(?:^|_)bsv0*(\d+)(?:_|$)",
@@ -128,7 +131,7 @@ def extract_bulletin_number(filename: str) -> str:
 
 
 def file_md5(path: Path, chunk_size: int = 1024 * 1024) -> str:
-    """ Calcule l'empreinte MD5 d'un fichier PDF. """
+    """Calcule l'empreinte MD5 d'un fichier PDF."""
     digest = hashlib.md5()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(chunk_size), b""):
@@ -137,14 +140,14 @@ def file_md5(path: Path, chunk_size: int = 1024 * 1024) -> str:
 
 
 def discover_pdfs(input_dir: Path) -> list[Path]:
-    """ Recherche récursivement tous les fichiers PDF présents. """
+    """Recherche récursivement tous les fichiers PDF présents."""
     if not input_dir.is_dir():
         raise FileNotFoundError(f"Input directory does not exist: {input_dir}")
     return sorted(input_dir.rglob("*.pdf"), key=lambda path: str(path).casefold())
 
 
 def path_metadata(path: Path, input_dir: Path) -> tuple[str, str, str]:
-    """ Récupère les métadonnées de classement à partir de l'arborescence. """
+    """Récupère les métadonnées de classement à partir de l'arborescence."""
     parts = path.relative_to(input_dir).parts
     source = parts[0] if len(parts) >= 1 else ""
     filiere = parts[1] if len(parts) >= 2 else ""
@@ -153,7 +156,7 @@ def path_metadata(path: Path, input_dir: Path) -> tuple[str, str, str]:
 
 
 def build_manifest(input_dir: Path) -> list[dict[str, str]]:
-    """ Construit la table descriptive du corpus. """
+    """Construit la table descriptive du corpus."""
     rows: list[dict[str, str]] = []
 
     for path in discover_pdfs(input_dir):
@@ -187,10 +190,12 @@ def build_manifest(input_dir: Path) -> list[dict[str, str]]:
 
 
 def mark_duplicates(rows: list[dict[str, str]]) -> None:
-    """ Détection des différentes formes de doublons. """
+    """Détection des différentes formes de doublons."""
 
     by_md5: dict[str, list[dict[str, str]]] = defaultdict(list)
-    by_identity: dict[tuple[str, str, str, str, str], list[dict[str, str]]] = defaultdict(list)
+    by_identity: dict[tuple[str, str, str, str, str], list[dict[str, str]]] = (
+        defaultdict(list)
+    )
     by_date: dict[tuple[str, str, str, str], list[dict[str, str]]] = defaultdict(list)
 
     for row in rows:
@@ -236,7 +241,7 @@ def mark_duplicates(rows: list[dict[str, str]]) -> None:
 
 
 def write_manifest(path: Path, rows: list[dict[str, str]]) -> None:
-    """ Écrit le manifeste complet au format CSV. """
+    """Écrit le manifeste complet au format CSV."""
 
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary_path = path.with_suffix(path.suffix + ".tmp")
@@ -248,13 +253,11 @@ def write_manifest(path: Path, rows: list[dict[str, str]]) -> None:
 
 
 def write_exploitable_list(path: Path, rows: list[dict[str, str]]) -> None:
-    """ Génère un fichier texte contenant uniquement les chemins """
+    """Génère un fichier texte contenant uniquement les chemins"""
 
     path.parent.mkdir(parents=True, exist_ok=True)
     selected = [
-        row["relative_path"]
-        for row in rows
-        if row["corpus_exploitable"] == "True"
+        row["relative_path"] for row in rows if row["corpus_exploitable"] == "True"
     ]
     path.write_text("\n".join(selected) + ("\n" if selected else ""), encoding="utf-8")
 
@@ -264,7 +267,7 @@ def materialize_corpus(
     destination: Path,
     rows: list[dict[str, str]],
 ) -> int:
-    """ Copie le corpus exploitable dans un répertoire dédié. """
+    """Copie le corpus exploitable dans un répertoire dédié."""
 
     copied = 0
     for row in rows:
@@ -280,8 +283,8 @@ def materialize_corpus(
 
 
 def main() -> int:
-    """ Fonction principale du script. """
-    
+    """Fonction principale du script."""
+
     args = parse_args()
     rows = build_manifest(args.input_dir.resolve())
     write_manifest(args.manifest_file.resolve(), rows)

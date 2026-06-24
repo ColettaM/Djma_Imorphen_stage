@@ -205,67 +205,52 @@ CULTURE_ALIASES = {
     # Tomate
     "TOMATE": "tomate",
     "TOMATES": "tomate",
-
     # Aubergine
     "AUBERGINE": "aubergine",
     "AUBERGINES": "aubergine",
-
     # Poivron
     "POIVRON": "poivron",
     "POIVRONS": "poivron",
-
     # Asperge
     "ASPERGE": "asperge",
     "ASPERGES": "asperge",
-
     # Pomme de terre
     "POMME DE TERRE": "pomme de terre",
     "POMMES DE TERRE": "pomme de terre",
     "POMMES DE TERRE PRIMEUR": "pomme de terre",
-
     # Oignon
     "OIGNON": "oignon",
     "OIGNONS": "oignon",
     "OIGNONS DE PRINTEMPS": "oignon",
-
     # Échalote
     "ECHALOTE": "echalote",
     "ECHALOTES": "echalote",
-
     # Salade
     "SALADE": "salade",
     "SALADES": "salade",
     "LAITUE": "salade",
     "LAITUES": "salade",
-
     # Jeunes pousses
     "JEUNES POUSSES": "jeunes pousses",
     "JEUNES POUSSE": "jeunes pousses",
     "JEUNES POUSSES D EPINARDS": "jeunes pousses",
-
     # Épinard
     "EPINARD": "epinard",
     "EPINARDS": "epinard",
-
     # Chou
     "CHOU": "chou",
     "CHOUX": "chou",
-
     # Navet
     "NAVET": "navet",
     "NAVETS": "navet",
-
     # Radis
     "RADIS": "radis",
-
     # Mâche
     "MACHE": "mache",
     "MACHES": "mache",
-
     # Roquette
     "ROQUETTE": "roquette",
     "ROQUETTES": "roquette",
-
     # Apiacées
     "CAROTTE": "carotte",
     "CAROTTES": "carotte",
@@ -274,23 +259,18 @@ CULTURE_ALIASES = {
     "FENOUIL": "fenouil",
     "FENOUILS": "fenouil",
     "PANAIS": "panais",
-
     # Fraisier
     "FRAISIER": "fraisier",
     "FRAISIERS": "fraisier",
     "FRAISE": "fraisier",
     "FRAISES": "fraisier",
-
     # Cucurbitacées
     "COURGETTE": "courgette",
     "COURGETTES": "courgette",
-
     "CONCOMBRE": "concombre",
     "CONCOMBRES": "concombre",
-
     "MELON": "melon",
     "MELONS": "melon",
-
     # Catégorie Grand Est
     "SOLANACEES ET CUCURBITACEES SOUS ABRI": "solanacees_cucurbitacees_sous_abri",
 }
@@ -309,9 +289,18 @@ QUANTITATIVE_RE = re.compile(
 
 RISK_LEVEL_PATTERNS = [
     ("tres_fort", r"\bRISQUE\b[^.;:]{0,45}\b(?:TRES\s+FORT|TRES\s+ELEVE)\b"),
-    ("fort", r"\b(?:RISQUE|NIVEAU\s+DE\s+RISQUE)\b[^.;:]{0,45}\b(?:FORT|ELEVE|IMPORTANT)\b"),
-    ("moyen_a_fort", r"\bRISQUE\b[^.;:]{0,45}\b(?:MOYEN\s+A\s+FORT|MOYEN\s+A\s+ELEVE|ASSEZ\s+FORT)\b"),
-    ("faible_a_moyen", r"\bRISQUE\b[^.;:]{0,45}\b(?:FAIBLE\s+A\s+MOYEN|MOYEN\s+A\s+FAIBLE|ASSEZ\s+FAIBLE)\b"),
+    (
+        "fort",
+        r"\b(?:RISQUE|NIVEAU\s+DE\s+RISQUE)\b[^.;:]{0,45}\b(?:FORT|ELEVE|IMPORTANT)\b",
+    ),
+    (
+        "moyen_a_fort",
+        r"\bRISQUE\b[^.;:]{0,45}\b(?:MOYEN\s+A\s+FORT|MOYEN\s+A\s+ELEVE|ASSEZ\s+FORT)\b",
+    ),
+    (
+        "faible_a_moyen",
+        r"\bRISQUE\b[^.;:]{0,45}\b(?:FAIBLE\s+A\s+MOYEN|MOYEN\s+A\s+FAIBLE|ASSEZ\s+FAIBLE)\b",
+    ),
     ("moyen", r"\bRISQUE\b[^.;:]{0,45}\bMOYEN\b"),
     ("faible", r"\bRISQUE\b[^.;:]{0,45}\b(?:FAIBLE|LIMITE|TRES\s+FAIBLE)\b"),
     ("nul", r"\b(?:PAS\s+DE\s+RISQUE|RISQUE\b[^.;:]{0,45}\bNUL)\b"),
@@ -355,6 +344,7 @@ FAVORABLE_TERMS = {
 
 # Structures de données
 
+
 @dataclass(frozen=True)
 class Observation:
     bulletin_id: str
@@ -385,6 +375,7 @@ class ExtractionSummary:
 
 # Arguments CLI
 
+
 def parse_args() -> argparse.Namespace:
     """Lit les chemins d'entrée et de sortie depuis la ligne de commande."""
 
@@ -408,6 +399,7 @@ def parse_args() -> argparse.Namespace:
 
 # Nettoyage et normalisation
 
+
 def ascii_key(value: str) -> str:
     """Supprime les accents."""
 
@@ -429,6 +421,7 @@ def clean_cell(value: str) -> str:
     value = value.replace("\ufeff", "")
     value = re.sub(r"(\w)-\s+(\w)", r"\1\2", value)
     return re.sub(r"\s+", " ", value).strip()
+
 
 def normalize_culture_name(culture: str) -> str:
     """Normalise un nom de culture."""
@@ -502,7 +495,9 @@ def split_observation_units(observation_text: str) -> list[str]:
         text,
     )
 
-    return [clean_cell(unit.strip(" ,")) for unit in units if clean_cell(unit.strip(" ,"))]
+    return [
+        clean_cell(unit.strip(" ,")) for unit in units if clean_cell(unit.strip(" ,"))
+    ]
 
 
 def split_observation_by_culture(
@@ -526,14 +521,8 @@ def split_observation_by_culture(
 
     observation_text = clean_cell(observation_text)
     units = split_observation_units(observation_text)
-    terms_by_culture = {
-        culture: culture_terms(culture)
-        for culture in cultures
-    }
-    matched_units: dict[str, list[str]] = {
-        culture: []
-        for culture in cultures
-    }
+    terms_by_culture = {culture: culture_terms(culture) for culture in cultures}
+    matched_units: dict[str, list[str]] = {culture: [] for culture in cultures}
     generic_units: list[str] = []
     last_targets: list[str] = []
 
@@ -560,10 +549,7 @@ def split_observation_by_culture(
     has_specific_match = any(matched_units.values())
 
     if not has_specific_match:
-        return {
-            culture: observation_text
-            for culture in cultures
-        }
+        return {culture: observation_text for culture in cultures}
 
     for culture in cultures:
         if generic_units:
@@ -581,11 +567,7 @@ def is_invalid_bioagresseur(bioagresseur: str) -> bool:
 
     key = normalize(bioagresseur)
 
-    return (
-        not key
-        or key in INVALID_BIOAGRESSOR_TERMS
-        or len(bioagresseur.split()) > 8
-    )
+    return not key or key in INVALID_BIOAGRESSOR_TERMS or len(bioagresseur.split()) > 8
 
 
 def is_parasite(value: str) -> bool:
@@ -596,6 +578,7 @@ def is_parasite(value: str) -> bool:
 
 
 # Référentiel des types
+
 
 def load_type_referential(types_file: Path) -> dict[str, str]:
     """
@@ -680,9 +663,7 @@ def load_bulletin_registry(
     """Load bulletin metadata used to route and validate observations."""
 
     if not bulletins_file.is_file():
-        raise FileNotFoundError(
-            f"Fichier bulletins introuvable : {bulletins_file}"
-        )
+        raise FileNotFoundError(f"Fichier bulletins introuvable : {bulletins_file}")
 
     with bulletins_file.open(encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
@@ -717,6 +698,7 @@ def canonical_region_slug(region_dir: str) -> str:
 
 # Extraction simple
 
+
 def extract_departments(*values: str) -> str:
     """Extrait les départements mentionnés."""
 
@@ -732,8 +714,7 @@ def extract_quantitative_indicators(value: str) -> str:
     """Extrait les indicateurs quantitatifs."""
 
     indicators = [
-        clean_cell(match.group(0))
-        for match in QUANTITATIVE_RE.finditer(value)
+        clean_cell(match.group(0)) for match in QUANTITATIVE_RE.finditer(value)
     ]
 
     return "; ".join(dict.fromkeys(indicators))
@@ -763,7 +744,9 @@ def extract_risk_level(*values: str) -> str:
     if "RISQUE" in text and any(term in text for term in {"DIMINUE", "BAISSE"}):
         return "en_baisse"
 
-    if "RISQUE" in text and any(term in text for term in {"STABLE", "MAINTIENT", "PERSISTE"}):
+    if "RISQUE" in text and any(
+        term in text for term in {"STABLE", "MAINTIENT", "PERSISTE"}
+    ):
         return "stable"
 
     return ""
@@ -796,8 +779,7 @@ def has_risk_signal(value: str) -> bool:
     return (
         "RISQUE" in value_norm
         or any(
-            re.search(rf"\b{re.escape(term)}\b", value_norm)
-            for term in FAVORABLE_TERMS
+            re.search(rf"\b{re.escape(term)}\b", value_norm) for term in FAVORABLE_TERMS
         )
         or any(re.search(pattern, value_norm) for _, pattern in RISK_LEVEL_PATTERNS)
     )
@@ -865,9 +847,7 @@ def extract_pdl_page_risk_analysis(table_path: Path) -> str:
             continue
 
         table_text = "\n".join(
-            " ".join(cell for cell in row if cell)
-            for row in rows
-            if any(row)
+            " ".join(cell for cell in row if cell) for row in rows if any(row)
         )
         analysis = extract_risk_analysis_from_text(table_text)
         if analysis:
@@ -885,9 +865,8 @@ def bulletin_id_from_stem(region_dir: str, bulletin_stem: str) -> str:
     bulletin_date = extract_bulletins.date_from_filename(bulletin_stem)
 
     if bulletin_date is None:
-        year_match = (
-            re.search(r"_(20\d{2})$", bulletin_stem)
-            or re.search(r"_(20\d{2})$", region_dir)
+        year_match = re.search(r"_(20\d{2})$", bulletin_stem) or re.search(
+            r"_(20\d{2})$", region_dir
         )
         year = int(year_match.group(1)) if year_match else "unknown"
     else:
@@ -917,10 +896,7 @@ def read_csv_rows(path: Path) -> list[list[str]]:
     """Lit un CSV de tableau extrait par pdfplumber."""
 
     with path.open(encoding="utf-8-sig", newline="") as handle:
-        return [
-            [clean_cell(cell) for cell in row]
-            for row in csv.reader(handle)
-        ]
+        return [[clean_cell(cell) for cell in row] for row in csv.reader(handle)]
 
 
 def table_metadata(path: Path, tables_dir: Path) -> tuple[str, str]:
@@ -935,6 +911,7 @@ def table_metadata(path: Path, tables_dir: Path) -> tuple[str, str]:
 
 
 # Extraction Pays de la Loire depuis les tableaux CSV
+
 
 def extract_pays_de_la_loire_table(
     table_path: Path,
@@ -1022,7 +999,9 @@ def extract_pays_de_la_loire_table(
                     culture=culture_norm,
                     bioagresseur=bioagresseur,
                     type=resolve_type(bioagresseur, type_map, observation_type),
-                    departements=extract_departments(localisations, observation_for_culture),
+                    departements=extract_departments(
+                        localisations, observation_for_culture
+                    ),
                     localisations=localisations,
                     observation=observation_for_culture,
                     indicateur_quantitatif=extract_quantitative_indicators(
@@ -1040,6 +1019,7 @@ def extract_pays_de_la_loire_table(
 
 
 # Extraction narrative Pays de la Loire 2023
+
 
 def pdl_2023_culture_heading(line: str) -> str:
     """Return the normalized culture group represented by a section heading."""
@@ -1063,14 +1043,14 @@ def split_pdl_2023_columns(line: str) -> tuple[str, str]:
         match
         for match in re.finditer(r" {4,}", line)
         if 48 <= match.end() <= 170
-        and line[:match.start()].strip()
-        and line[match.end():].strip()
+        and line[: match.start()].strip()
+        and line[match.end() :].strip()
     ]
     if candidates:
         separator = min(candidates, key=lambda match: abs(match.end() - 62))
         return (
-            line[:separator.start()].strip(),
-            line[separator.end():].strip(),
+            line[: separator.start()].strip(),
+            line[separator.end() :].strip(),
         )
 
     return line.strip(), ""
@@ -1222,9 +1202,7 @@ def pdl_2023_supporting_tables(
         if not match:
             continue
         rows = read_csv_rows(table_path)
-        table_text = clean_cell(
-            " ".join(cell for row in rows for cell in row if cell)
-        )
+        table_text = clean_cell(" ".join(cell for row in rows for cell in row if cell))
         table_norm = normalize(table_text)
         if not table_text or any(
             noise in table_norm
@@ -1294,7 +1272,7 @@ def extract_pdl_2023_text(
                 if section_position + 1 < len(section_starts)
                 else len(page_lines)
             )
-            segment = page_lines[start + 1:end]
+            segment = page_lines[start + 1 : end]
             if any(normalize(line) in PDL_2023_SECTION_ENDS for _, line in segment):
                 first_end = next(
                     index
@@ -1367,9 +1345,11 @@ def extract_pdl_2023_text(
                                 str(path.relative_to(PROJECT_ROOT))
                                 for path, _ in support
                             )
-                        analyse_risque, niveau_risque, facteurs_favorables = build_risk_fields(
-                            observation_for_culture,
-                            support_text,
+                        analyse_risque, niveau_risque, facteurs_favorables = (
+                            build_risk_fields(
+                                observation_for_culture,
+                                support_text,
+                            )
                         )
 
                         observations.append(
@@ -1434,7 +1414,7 @@ def split_pdl_2023_culture_prefix(value: str) -> tuple[str, str]:
             continue
         return (
             PDL_2023_CULTURE_HEADINGS[heading],
-            clean_cell(value[match.end():].lstrip(" :-")),
+            clean_cell(value[match.end() :].lstrip(" :-")),
         )
 
     return "", value
@@ -1466,7 +1446,9 @@ def detect_bioaggressors_in_flash_block(
     text_norm = normalize(text)
     candidates: list[tuple[str, str, str]] = []
 
-    for term, type_value in sorted(type_map.items(), key=lambda item: len(item[0]), reverse=True):
+    for term, type_value in sorted(
+        type_map.items(), key=lambda item: len(item[0]), reverse=True
+    ):
         if len(term) < 5 or not re.search(rf"\b{re.escape(term)}\b", text_norm):
             continue
         if any(term in existing[2] or existing[2] in term for existing in candidates):
@@ -1532,15 +1514,17 @@ def extract_pdl_2023_flash_text(
                     buffer = []
                     return
 
-                for bioagresseur, type_value, matched_term in detect_bioaggressors_in_flash_block(
+                for (
+                    bioagresseur,
+                    type_value,
+                    matched_term,
+                ) in detect_bioaggressors_in_flash_block(
                     block_text,
                     type_map,
                 ):
                     units = split_observation_units(block_text)
                     matching_units = [
-                        unit
-                        for unit in units
-                        if matched_term in normalize(unit)
+                        unit for unit in units if matched_term in normalize(unit)
                     ]
                     observation_text = clean_cell(
                         "; ".join(matching_units) if matching_units else block_text
@@ -1549,12 +1533,17 @@ def extract_pdl_2023_flash_text(
                     if not cultures:
                         cultures = [current_culture]
 
-                    for culture, observation_for_culture in split_observation_by_culture(
+                    for (
+                        culture,
+                        observation_for_culture,
+                    ) in split_observation_by_culture(
                         observation_text,
                         cultures,
                     ).items():
-                        analyse_risque, niveau_risque, facteurs_favorables = build_risk_fields(
-                            observation_for_culture,
+                        analyse_risque, niveau_risque, facteurs_favorables = (
+                            build_risk_fields(
+                                observation_for_culture,
+                            )
                         )
 
                         observations.append(
@@ -1586,7 +1575,11 @@ def extract_pdl_2023_flash_text(
                 buffer = []
 
             for line_number, value, line_register in column:
-                if line_register and line_register != current_register and current_culture:
+                if (
+                    line_register
+                    and line_register != current_register
+                    and current_culture
+                ):
                     flush_flash_block()
                     current_culture = ""
                 if line_register:
@@ -1608,6 +1601,7 @@ def extract_pdl_2023_flash_text(
 
 # Extraction Grand Est depuis le texte
 
+
 def is_grand_est_bioagressor_heading(line: str) -> str | None:
     """Détecte un titre de bioagresseur du type '2 Pucerons' ou '3 Mildiou'."""
 
@@ -1620,10 +1614,11 @@ def is_grand_est_bioagressor_heading(line: str) -> str | None:
     normalized = normalize(title)
 
     if normalized in {
-    "STADES PHENOLOGIQUES",
-    "AUTRES BIOAGRESSEURS",
-    "MALADIES",
-    "RAVAGEURS",}:
+        "STADES PHENOLOGIQUES",
+        "AUTRES BIOAGRESSEURS",
+        "MALADIES",
+        "RAVAGEURS",
+    }:
         return None
 
     if len(title) > 80:
@@ -1635,10 +1630,7 @@ def is_grand_est_bioagressor_heading(line: str) -> str | None:
 def line_is_subsection(line: str, label: str) -> bool:
     """Détecte une sous-section du type 'a. Observations'."""
 
-    return (
-        re.match(rf"^\s*[a-d]\.\s*{label}\b", line, flags=re.IGNORECASE)
-        is not None
-    )
+    return re.match(rf"^\s*[a-d]\.\s*{label}\b", line, flags=re.IGNORECASE) is not None
 
 
 def flush_grand_est_observation(
@@ -1687,7 +1679,9 @@ def flush_grand_est_observation(
                 departements=extract_departments(observation_text),
                 localisations="",
                 observation=observation_text,
-                indicateur_quantitatif=extract_quantitative_indicators(observation_text),
+                indicateur_quantitatif=extract_quantitative_indicators(
+                    observation_text
+                ),
                 evolution="",
                 analyse_risque=analyse_risque,
                 niveau_risque_observation=niveau_risque,
@@ -1765,13 +1759,17 @@ def extract_grand_est_text(
             continue
 
         if line_is_subsection(line, "Observations"):
-            current_section = "observations" if current_culture and current_bioagresseur else ""
+            current_section = (
+                "observations" if current_culture and current_bioagresseur else ""
+            )
             observation_buffer = []
             start_line = index
             continue
 
         if line_is_subsection(line, "Analyse"):
-            current_section = "analyse" if current_culture and current_bioagresseur else ""
+            current_section = (
+                "analyse" if current_culture and current_bioagresseur else ""
+            )
             analysis_buffer = []
             continue
 
@@ -1802,6 +1800,7 @@ def extract_grand_est_text(
 
 
 # Découverte des fichiers
+
 
 def discover_csv_files(tables_dir: Path) -> list[Path]:
     """Liste tous les CSV de tableaux."""
@@ -1836,6 +1835,7 @@ def discover_grand_est_texts(text_dir: Path) -> list[Path]:
 
 # Écriture CSV
 
+
 def write_csv(path: Path, rows: list[dict], fieldnames: list[str]) -> None:
     """Écrit un CSV de manière sécurisée."""
 
@@ -1851,6 +1851,7 @@ def write_csv(path: Path, rows: list[dict], fieldnames: list[str]) -> None:
 
 
 # Extraction globale
+
 
 def deduplicate_observations(observations: list[Observation]) -> list[Observation]:
     """Supprime les doublons stricts d'observations."""
@@ -1981,7 +1982,9 @@ def extract_all(
                         summary.text_files_used += 1
                         logs.append(
                             {
-                                "timestamp": datetime.now().isoformat(timespec="seconds"),
+                                "timestamp": datetime.now().isoformat(
+                                    timespec="seconds"
+                                ),
                                 "source_file": relative,
                                 "status": "OK",
                                 "rows": str(len(extracted)),
@@ -1992,7 +1995,9 @@ def extract_all(
                         summary.text_files_skipped += 1
                         logs.append(
                             {
-                                "timestamp": datetime.now().isoformat(timespec="seconds"),
+                                "timestamp": datetime.now().isoformat(
+                                    timespec="seconds"
+                                ),
                                 "source_file": relative,
                                 "status": "SKIPPED",
                                 "rows": "0",
@@ -2055,8 +2060,7 @@ def extract_all(
     observations = deduplicate_observations(observations)
 
     unknown_ids = sorted(
-        {row.bulletin_id for row in observations}
-        - set(bulletin_registry)
+        {row.bulletin_id for row in observations} - set(bulletin_registry)
     )
     if unknown_ids:
         raise ValueError(
@@ -2087,6 +2091,7 @@ def extract_all(
 
 
 # Main
+
 
 def main() -> int:
     """Point d'entrée du script."""

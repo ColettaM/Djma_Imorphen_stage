@@ -37,7 +37,9 @@ class ResolveAgentsTests(unittest.TestCase):
         self.assertEqual(message, "")
 
     def test_mildiou_pomme_de_terre_resolves_via_associated_host(self) -> None:
-        agent, classe_dataset, status, message = self.resolve("pomme de terre", "Mildiou")
+        agent, classe_dataset, status, message = self.resolve(
+            "pomme de terre", "Mildiou"
+        )
 
         self.assertEqual(agent, "Phytophthora infestans")
         self.assertEqual(classe_dataset, "late_blight")

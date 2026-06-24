@@ -179,6 +179,7 @@ INFORMATIVE_WEATHER_TERMS = {
 
 # Structures de données
 
+
 @dataclass(frozen=True)
 class Bulletin:
     """Représente une ligne de la table bsv_bulletins.csv."""
@@ -228,6 +229,7 @@ class ExtractionSummary:
 
 # Lecture des arguments de la ligne de commande
 
+
 def parse_args() -> argparse.Namespace:
     """Lit les chemins d'entrée, de sortie et de log depuis la ligne de commande."""
 
@@ -261,6 +263,7 @@ def parse_args() -> argparse.Namespace:
 
 # Fonctions de normalisation du texte
 
+
 def ascii_key(value: str) -> str:
     """
     Supprime les accents d'une chaîne de caractères.
@@ -271,10 +274,7 @@ def ascii_key(value: str) -> str:
 
     normalized = unicodedata.normalize("NFKD", value)
 
-    return "".join(
-        char for char in normalized
-        if not unicodedata.combining(char)
-    )
+    return "".join(char for char in normalized if not unicodedata.combining(char))
 
 
 def normalized_heading(value: str) -> str:
@@ -293,6 +293,7 @@ def normalized_heading(value: str) -> str:
 
 # Extraction de la région
 
+
 def region_slug_from_path(text_path: Path, input_dir: Path) -> str:
     """
     Déduit la région à partir du dossier parent du fichier texte.
@@ -305,9 +306,7 @@ def region_slug_from_path(text_path: Path, input_dir: Path) -> str:
     relative_path = text_path.relative_to(input_dir)
 
     if len(relative_path.parts) < 2:
-        raise ValueError(
-            "text file is not stored in a regional subdirectory"
-        )
+        raise ValueError("text file is not stored in a regional subdirectory")
 
     detected = re.sub(
         r"_20\d{2}$",
@@ -319,6 +318,7 @@ def region_slug_from_path(text_path: Path, input_dir: Path) -> str:
 
 
 # Extraction du numéro, de la date et de la semaine
+
 
 def extract_bulletin_number(filename: str) -> int | None:
     """
@@ -366,12 +366,10 @@ def date_from_filename(filename: str) -> date | None:
         return None
 
     try:
-        return date(
-            *(int(part) for part in match.groups())
-        )
+        return date(*(int(part) for part in match.groups()))
     except ValueError:
         return None
- 
+
 
 def date_from_text(text: str) -> date | None:
     """
@@ -403,6 +401,7 @@ def date_from_text(text: str) -> date | None:
     except ValueError:
         return None
 
+
 def date_from_grand_est_header(text: str) -> date | None:
     """
     Extrait la date officielle des BSV Grand Est.
@@ -429,21 +428,6 @@ def date_from_grand_est_header(text: str) -> date | None:
         return date(int(year), MONTHS[month_name], int(day))
     except ValueError:
         return None
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def forecast_period(
@@ -473,10 +457,7 @@ def forecast_period(
 
     end_date = start_date + timedelta(days=6)
 
-    return (
-        f"{start_date:%d/%m/%Y}-"
-        f"{end_date:%d/%m/%Y}"
-    )
+    return f"{start_date:%d/%m/%Y}-" f"{end_date:%d/%m/%Y}"
 
 
 def year_from_path(text_path: Path, input_dir: Path) -> int | None:
@@ -509,9 +490,7 @@ def detect_template_id(
 
     if region_slug == "grandest":
         has_weather = "DONNEES METEO" in normalized_text
-        no_observations = (
-            "IL N Y A PAS EU DE PARCELLES OBSERVEES" in normalized_text
-        )
+        no_observations = "IL N Y A PAS EU DE PARCELLES OBSERVEES" in normalized_text
         if not has_weather and no_observations:
             return TEMPLATE_GRAND_EST_SANS_OBSERVATION
         return TEMPLATE_GRAND_EST
@@ -535,6 +514,7 @@ def build_bulletin_id(
 
 
 # Nettoyage des sections extraites
+
 
 def clean_section(lines: list[str]) -> str:
     """
@@ -585,6 +565,7 @@ def clean_section(lines: list[str]) -> str:
 
 
 # Extraction de la prévision météo - Pays de la Loire
+
 
 def split_pages(text: str) -> list[tuple[int, list[str]]]:
     """Split extracted text into numbered pages while preserving line order."""
@@ -680,10 +661,7 @@ def score_weather_candidate(candidate: WeatherCandidate) -> WeatherCandidate:
     heading = normalized_heading(text)
     word_count = len(text.split())
     weather_terms = weather_term_count(text)
-    favorable_terms = sum(
-        term in heading
-        for term in WEATHER_FAVORABILITY_TERMS
-    )
+    favorable_terms = sum(term in heading for term in WEATHER_FAVORABILITY_TERMS)
     culture_terms = sum(
         bool(re.search(rf"\b{re.escape(term)}S?\b", heading))
         for term in WEATHER_CULTURE_TERMS
@@ -747,7 +725,7 @@ def find_weather_candidates(text: str) -> list[WeatherCandidate]:
                     ):
                         end = candidate_end
                         break
-                block = clean_section(lines[index + 1:end])
+                block = clean_section(lines[index + 1 : end])
                 if block:
                     candidates.append(
                         WeatherCandidate(
@@ -759,12 +737,9 @@ def find_weather_candidates(text: str) -> list[WeatherCandidate]:
                     )
 
             compact = heading.replace(" ", "")
-            if (
-                "SOURCEWEATHERMEASURES" in compact
-                or "SOURCEMETEOFRANCE" in compact
-            ):
+            if "SOURCEWEATHERMEASURES" in compact or "SOURCEMETEOFRANCE" in compact:
                 preceding_pattern = ""
-                for preceding_heading in reversed(headings[:index + 1]):
+                for preceding_heading in reversed(headings[: index + 1]):
                     preceding_pattern = matched_weather_start(preceding_heading)
                     if preceding_pattern:
                         break
@@ -789,8 +764,7 @@ def find_weather_candidates(text: str) -> list[WeatherCandidate]:
 
         for start, end in paragraph_ranges(lines):
             if any(
-                matched_weather_start(headings[index])
-                for index in range(start, end)
+                matched_weather_start(headings[index]) for index in range(start, end)
             ):
                 continue
             block = clean_section(lines[start:end])
@@ -912,7 +886,8 @@ def extract_pdl_2023_weather(text: str) -> str:
 
     # Bloc 2 : commentaire météo bilan/tendance
     start_candidates = [
-        i for i, h in enumerate(headings)
+        i
+        for i, h in enumerate(headings)
         if h.startswith("LA SEMAINE")
         or "LA FIN DE SEMAINE" in h
         or "LES TEMPERATURES" in h
@@ -987,6 +962,7 @@ def extract_pays_de_la_loire_weather(
 
 # Extraction de la prévision météo - Grand Est
 
+
 def extract_grand_est_weather(text: str) -> str:
     """
     Extrait la section météo des BSV Grand Est.
@@ -999,9 +975,7 @@ def extract_grand_est_weather(text: str) -> str:
     headings = [normalized_heading(line) for line in lines]
 
     occurrences = [
-        index
-        for index, heading in enumerate(headings)
-        if heading == "DONNEES METEO"
+        index for index, heading in enumerate(headings) if heading == "DONNEES METEO"
     ]
 
     if not occurrences:
@@ -1158,10 +1132,7 @@ def extract_bulletin(
             or date_from_text(text)
         )
     else:
-        bulletin_date = (
-            date_from_filename(text_path.stem)
-            or date_from_text(text)
-        )
+        bulletin_date = date_from_filename(text_path.stem) or date_from_text(text)
 
     detected_year = (
         bulletin_date.year
@@ -1196,13 +1167,14 @@ def extract_bulletin(
             warnings.append(str(exc))
             periode_prevision_meteo = ""
     elif weather.nature in {"bilan", "bilan_tendance"}:
-        periode_prevision_meteo = extract_explicit_forecast_period(
-            weather.text
-        )
+        periode_prevision_meteo = extract_explicit_forecast_period(weather.text)
     else:
         periode_prevision_meteo = ""
 
-    if weather.status == "absente" and template_id != TEMPLATE_GRAND_EST_SANS_OBSERVATION:
+    if (
+        weather.status == "absente"
+        and template_id != TEMPLATE_GRAND_EST_SANS_OBSERVATION
+    ):
         warnings.append("weather section not found")
     elif weather.status == "image_seule":
         warnings.append("weather text is image-only")
@@ -1236,15 +1208,14 @@ def extract_bulletin(
 
 # Découverte des fichiers texte
 
+
 def discover_text_files(input_dir: Path) -> list[Path]:
     """
     Recherche tous les fichiers .txt générés à l'étape précédente.
     """
 
     if not input_dir.is_dir():
-        raise FileNotFoundError(
-            f"Input directory does not exist: {input_dir}"
-        )
+        raise FileNotFoundError(f"Input directory does not exist: {input_dir}")
 
     return sorted(
         input_dir.rglob("*.txt"),
@@ -1253,6 +1224,7 @@ def discover_text_files(input_dir: Path) -> list[Path]:
 
 
 # Écriture CSV sécurisée
+
 
 def write_csv(
     path: Path,
@@ -1287,6 +1259,7 @@ def write_csv(
 
 
 # Extraction complète du corpus
+
 
 def extract_all(
     input_dir: Path,
@@ -1353,15 +1326,10 @@ def extract_all(
         )
     )
 
-    ids = [
-        bulletin.bulletin_id
-        for bulletin in bulletins
-    ]
+    ids = [bulletin.bulletin_id for bulletin in bulletins]
 
     if len(ids) != len(set(ids)):
-        raise ValueError(
-            "duplicate bulletin_id values detected"
-        )
+        raise ValueError("duplicate bulletin_id values detected")
 
     write_csv(
         output_file,
@@ -1384,6 +1352,7 @@ def extract_all(
 
 
 # Point d'entrée du script
+
 
 def main() -> int:
     """

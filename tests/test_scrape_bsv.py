@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-import scrape_bsv
+import scrape_bsv  # noqa: E402
 
 
 class ExtractPdfLinksTests(unittest.TestCase):
@@ -33,8 +33,7 @@ class ExtractPdfLinksTests(unittest.TestCase):
 
     def test_grand_est_archive_url_pattern(self) -> None:
         grand_est = next(
-            source for source in scrape_bsv.SOURCES
-            if source["source_id"] == "grandest"
+            source for source in scrape_bsv.SOURCES if source["source_id"] == "grandest"
         )
         filiere = grand_est["filieres"][0]
 

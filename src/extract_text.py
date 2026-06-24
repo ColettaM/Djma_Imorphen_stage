@@ -31,28 +31,28 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
-DEFAULT_INPUT_DIR  = PROJECT_ROOT / "data" / "raw" / "bsv_pdf"
-DEFAULT_CORPUS_LIST = (
-    PROJECT_ROOT / "data" / "processed" / "bsv_corpus_exploitable.txt"
-)
+DEFAULT_INPUT_DIR = PROJECT_ROOT / "data" / "raw" / "bsv_pdf"
+DEFAULT_CORPUS_LIST = PROJECT_ROOT / "data" / "processed" / "bsv_corpus_exploitable.txt"
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "outputs" / "extracted_text"
 DEFAULT_TABLES_DIR = PROJECT_ROOT / "outputs" / "tables"
-DEFAULT_LOG_FILE   = PROJECT_ROOT / "outputs" / "logs" / "extraction.log"
+DEFAULT_LOG_FILE = PROJECT_ROOT / "outputs" / "logs" / "extraction.log"
 
 
 # Résumé de l'exécution
+
 
 @dataclass
 class ExtractionSummary:
     """Stocke les compteurs globaux de l'extraction."""
 
     extracted: int = 0  # Nombre de PDF effectivement extraits
-    skipped:   int = 0  # Nombre de PDF ignorés car déjà extraits
-    failed:    int = 0  # Nombre de PDF en erreur
-    tables:    int = 0  # Nombre total de tableaux CSV écrits
+    skipped: int = 0  # Nombre de PDF ignorés car déjà extraits
+    failed: int = 0  # Nombre de PDF en erreur
+    tables: int = 0  # Nombre total de tableaux CSV écrits
 
 
 # Arguments de ligne de commande
+
 
 def parse_args() -> argparse.Namespace:
     """
@@ -71,52 +71,49 @@ def parse_args() -> argparse.Namespace:
         "--input-dir",
         type=Path,
         default=DEFAULT_INPUT_DIR,
-        help="Répertoire contenant les PDF"
+        help="Répertoire contenant les PDF",
     )
 
     parser.add_argument(
         "--output-dir",
         type=Path,
         default=DEFAULT_OUTPUT_DIR,
-        help="Répertoire de sortie des fichiers texte"
+        help="Répertoire de sortie des fichiers texte",
     )
 
     parser.add_argument(
         "--corpus-list",
         type=Path,
         default=DEFAULT_CORPUS_LIST,
-        help="Liste des chemins relatifs des PDF exploitables"
+        help="Liste des chemins relatifs des PDF exploitables",
     )
 
     parser.add_argument(
         "--all-pdfs",
         action="store_true",
-        help="Ignorer la liste du corpus et parcourir tous les PDF"
+        help="Ignorer la liste du corpus et parcourir tous les PDF",
     )
 
     parser.add_argument(
         "--tables-dir",
         type=Path,
         default=DEFAULT_TABLES_DIR,
-        help="Répertoire de sortie des tableaux CSV"
+        help="Répertoire de sortie des tableaux CSV",
     )
 
     parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Réécrire les fichiers déjà extraits"
+        "--force", action="store_true", help="Réécrire les fichiers déjà extraits"
     )
 
     parser.add_argument(
-        "--no-tables",
-        action="store_true",
-        help="Désactiver l'extraction des tableaux"
+        "--no-tables", action="store_true", help="Désactiver l'extraction des tableaux"
     )
 
     return parser.parse_args()
 
 
 # Découverte des PDF
+
 
 def discover_pdfs(
     input_dir: Path,
@@ -136,10 +133,7 @@ def discover_pdfs(
     input_dir = input_dir.resolve()
 
     if corpus_list is None:
-        return sorted(
-            p for p in input_dir.rglob("*.pdf")
-            if p.is_file()
-        )
+        return sorted(p for p in input_dir.rglob("*.pdf") if p.is_file())
 
     if not corpus_list.exists():
         raise FileNotFoundError(
@@ -165,9 +159,7 @@ def discover_pdfs(
             ) from exc
 
         if pdf_path.suffix.lower() != ".pdf":
-            raise ValueError(
-                f"Fichier non PDF dans {corpus_list} : {relative_path}"
-            )
+            raise ValueError(f"Fichier non PDF dans {corpus_list} : {relative_path}")
         if not pdf_path.is_file():
             missing_paths.append(relative_path)
             continue
@@ -188,6 +180,7 @@ def discover_pdfs(
 
 # Construction des chemins de sortie
 
+
 def txt_path_for(
     pdf_path: Path,
     input_dir: Path,
@@ -201,9 +194,7 @@ def txt_path_for(
         → outputs/extracted_text/grand_est_2025/BSV01.txt
     """
 
-    return (
-        output_dir / pdf_path.relative_to(input_dir)
-    ).with_suffix(".txt")
+    return (output_dir / pdf_path.relative_to(input_dir)).with_suffix(".txt")
 
 
 def table_dir_for(
@@ -223,6 +214,7 @@ def table_dir_for(
 
 
 # Extraction texte avec PyMuPDF
+
 
 def extract_pdf_text(pdf_path: Path) -> tuple[str, int]:
     """
@@ -254,20 +246,19 @@ def extract_pdf_text(pdf_path: Path) -> tuple[str, int]:
         for page_number, page in enumerate(document, start=1):
             text = page.get_text("text", sort=True).strip()
 
-            page_texts.append(
-                f"--- PAGE {page_number} ---\n{text}"
-            )
+            page_texts.append(f"--- PAGE {page_number} ---\n{text}")
 
     return "\n\n".join(page_texts), nb_pages
 
 
 # Extraction des tableaux avec pdfplumber
 
+
 def extract_pdf_tables(
-    pdf_path:   Path,
-    input_dir:  Path,
+    pdf_path: Path,
+    input_dir: Path,
     tables_dir: Path,
-    force:      bool = False,
+    force: bool = False,
 ) -> int:
     """
     Extrait les tableaux détectés par pdfplumber et les sauvegarde en CSV.
@@ -305,8 +296,7 @@ def extract_pdf_tables(
 
             for table_idx, table in enumerate(tables, start=1):
                 csv_path = (
-                    bulletin_table_dir
-                    / f"page_{page_num:02d}_table_{table_idx}.csv"
+                    bulletin_table_dir / f"page_{page_num:02d}_table_{table_idx}.csv"
                 )
 
                 # Si le tableau existe déjà, on ne le réécrit pas sauf si --force est utilisé.
@@ -321,9 +311,7 @@ def extract_pdf_tables(
                     for row in table:
                         # Les cellules None sont remplacées par une chaîne vide
                         # pour éviter les valeurs nulles dans les CSV.
-                        writer.writerow(
-                            ["" if cell is None else cell for cell in row]
-                        )
+                        writer.writerow(["" if cell is None else cell for cell in row])
 
                 n_tables_written += 1
 
@@ -331,6 +319,7 @@ def extract_pdf_tables(
 
 
 # Journalisation
+
 
 def write_log(log_file: Path, row: dict) -> None:
     """
@@ -369,11 +358,12 @@ def write_log(log_file: Path, row: dict) -> None:
 
 # Extraction globale du corpus
 
+
 def extract_all(
-    input_dir:   Path,
-    output_dir:  Path,
-    tables_dir:  Path,
-    force:       bool = False,
+    input_dir: Path,
+    output_dir: Path,
+    tables_dir: Path,
+    force: bool = False,
     with_tables: bool = True,
     corpus_list: Path | None = None,
 ) -> ExtractionSummary:
@@ -492,6 +482,7 @@ def extract_all(
 
 # Main
 
+
 def main() -> int:
     """
     Point d'entrée du programme.
@@ -511,9 +502,7 @@ def main() -> int:
             tables_dir=args.tables_dir.resolve(),
             force=args.force,
             with_tables=not args.no_tables,
-            corpus_list=(
-                None if args.all_pdfs else args.corpus_list.resolve()
-            ),
+            corpus_list=(None if args.all_pdfs else args.corpus_list.resolve()),
         )
 
     except Exception as exc:
