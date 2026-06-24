@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Environnement
+.venv/
+env/
+
+# Fichiers temporaires
+.tmp_tests/
+tmp/
+
+# Sorties volumineuses
+outputs/extracted_text/
+outputs/tables/
+outputs/logs/
+
+notebooks/.ipynb_checkpoints/
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Données brutes
+data/raw/bsv_pdf/
+
+# OS
+.DS_Store
+Thumbs.db
