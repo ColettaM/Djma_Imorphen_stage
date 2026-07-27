@@ -39,58 +39,49 @@ d'eviter qu'une execution ulterieure rende la documentation obsolete.
 
 ```text
 phythosanitaire/
-|-- README.md
 |-- config/
 |   `-- pipeline.json
-|-- docs/
-|   `-- phase3_historique.md
 |-- data/
 |   |-- raw/
-|   |   |-- referentiel_cnn_bsv.csv
+|   |   |-- moteur/
+|   |   |   |-- bsv_pdf/
+|   |   |   |-- referentiel_cnn_bsv.csv
+|   |   |   `-- referentiel_types.csv
 |   |   `-- tomato_final/
 |   `-- processed/
-|       |-- bsv_bulletins.csv
-|       |-- bsv_observations.csv
-|       |-- synthese_tomate.csv
-|       |-- synthese_bioagresseurs_tomate_par_region.csv
-|       |-- periodes_bioagresseurs_tomate_par_region.csv
-|       |-- periodes_bioagresseurs_tomate_par_region_annee.csv
-|       |-- bsv_compatibility_phase3.csv
-|       `-- phase3/
-|           |-- images_unlabeled/
-|           |-- ground_truth.csv
-|           |-- phase3_test_manifest_masked.csv
-|           |-- phase3_test_with_metadata.csv
-|           |-- phase3_scenario_assignments.csv
-|           `-- phase3_bsv_metadata_coverage.csv
+|       `-- moteur/
+|           |-- phase3/
+|           `-- autres CSV BSV
 |-- models/
-|   `-- best_resnet50_tomato.pth
+|   |-- best_resnet50_tomato.pth
+|   `-- class_names.json
 |-- notebooks/
-|   |-- phase3_analysis.ipynb
-|   `-- phase3_visualisation.ipynb
+|   `-- moteur/
 |-- outputs/
-|   |-- extracted_text/
-|   |-- tables/
-|   |-- logs/
-|   `-- phase3/
-|       |-- cnn_topk_predictions.json
-|       |-- requete_phase3.json
-|       `-- analysis/
-`-- src/
-    |-- scrape_bsv.py
-    |-- prepare_corpus.py
-    |-- extract_text.py
-    |-- extract_bulletins.py
-    |-- extract_observations.py
-    |-- extract_tomato_bioagressor_periods.py
-    |-- build_manifest_images.py
-    |-- add_bsv_compatible_metadata.py
-    |-- inference_cnn.py
-    |-- build_phase3_query.py
-    |-- moteur_compatibilite.py
-    |-- phase3_prepare_analysis.py
-    |-- phase3_evaluate.py
-    `-- run_pipeline.py
+|   `-- moteur/
+|-- src/
+|   |-- moteur/
+      |-- scrape_bsv.py
+      |-- prepare_corpus.py
+      |-- extract_text.py
+      |-- extract_bulletins.py
+      |-- extract_observations.py
+      |-- extract_tomato_bioagressor_periods.py
+      |-- build_manifest_images.py
+      |-- add_bsv_compatible_metadata.py
+      |-- inference_cnn.py
+      |-- build_phase3_query.py
+      |-- moteur_compatibilite.py
+      |-- phase3_prepare_analysis.py
+      |-- phase3_evaluate.py
+      `-- run_pipeline.py
+|   `-- llm_juge/
+|-- tests/
+|   `-- moteur/
+`-- docs/
+    |-- requirements_moteur.txt
+    `-- phase3_moteur.md
+
 ```
 
 ## Corpus BSV
