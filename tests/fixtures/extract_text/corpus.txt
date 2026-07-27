@@ -1,2 +1,0 @@
-# corpus exploitable
-pdl/bulletin.pdf

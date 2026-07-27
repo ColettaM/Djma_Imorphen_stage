@@ -1,0 +1,106 @@
+bioagresseur,type
+mildiou,maladie
+alternariose,maladie
+septoriose,maladie
+cladosporiose,maladie
+oidium,maladie
+verticilliose,maladie
+fusariose,maladie
+botrytis,maladie
+sclerotinia,maladie
+rhizoctone,maladie
+phoma,maladie
+anthracnose,maladie
+bacteriose,maladie
+tache bacterienne,maladie
+chancre bacterien,maladie
+pourriture grise,maladie
+pourriture blanche,maladie
+virus de la mosaique,maladie
+tobrfv,maladie
+tomato brown rugose fruit virus,maladie
+tylcv,maladie
+tomato yellow leaf curl virus,maladie
+virus de l'enroulement jaune,maladie
+virus de la mosaique du pepino,maladie
+pepino mosaic virus,maladie
+cmv,maladie
+cucumber mosaic virus,maladie
+tswv,maladie
+tomato spotted wilt virus,maladie
+tomv,maladie
+tomato mosaic virus,maladie
+stemphyliose,maladie
+stemphylium,maladie
+corynesporiose,maladie
+corynespora cassiicola,maladie
+craqueleure bacterienne,maladie
+moisissure olive,maladie
+clavibacter michiganensis,maladie
+erwinia,maladie
+pythium,maladie
+fonte des semis,maladie
+racines liegeuses,maladie
+corky root,maladie
+tuta absoluta,ravageur
+mouche blanche,ravageur
+bemisia tabaci,ravageur
+trialeurodes vaporariorum,ravageur
+nesidiocoris tenuis,ravageur
+heliothis armigera,ravageur
+helicoverpa armigera,ravageur
+polyphagotarsonemus latus,ravageur
+tarsoneme,ravageur
+tarsonemes,ravageur
+nematodes,ravageur
+nematode,ravageur
+meloidogyne,ravageur
+galles racinaires,ravageur
+pucerons,ravageur
+puceron,ravageur
+thrips,ravageur
+aleurodes,ravageur
+aleurode,ravageur
+acariens tetranyques,ravageur
+acariens,ravageur
+tetranyques,ravageur
+doryphores,ravageur
+doryphore,ravageur
+altises,ravageur
+altise,ravageur
+limaces,ravageur
+limace,ravageur
+noctuelles,ravageur
+noctuelle,ravageur
+mineuses,ravageur
+mineuse,ravageur
+mouche mineuse,ravageur
+mouche de la carotte,ravageur
+mouche du chou,ravageur
+mouche du poireau,ravageur
+teigne du poireau,ravageur
+piéride du chou,ravageur
+punaises,ravageur
+punaise,ravageur
+nezara viridula,ravageur
+taupins,ravageur
+taupin,ravageur
+charancons,ravageur
+charancon,ravageur
+cicadelles,ravageur
+cicadelle,ravageur
+chenilles,ravageur
+chenille,ravageur
+vers gris,ravageur
+carence azote,carence
+carence phosphore,carence
+carence potassium,carence
+carence calcium,carence
+carence magnesium,carence
+carence fer,carence
+carence bore,carence
+carence manganese,carence
+carence nutritive,carence
+pourriture apicale,carence
+necrose apicale,carence
+blossom end rot,carence

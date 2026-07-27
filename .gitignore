@@ -1,32 +1,49 @@
+# Environnements
+.venv/
+venv/
+env/
+
+# DVC
+.dvc/cache/
+
 # Python
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
 
-# Environnement
-.venv/
-env/
+# Jupyter
+.ipynb_checkpoints/
 
-# Fichiers temporaires
-.tmp_tests/
+# Temporaires
 tmp/
+.tmp_tests/
 
-# Sorties volumineuses
-outputs/extracted_text/
-outputs/tables/
-outputs/logs/
+# Données volumineuses
+data/raw/classification_tomato/
+data/raw/meteo/
+data/raw/moteur/bsv_pdf/
+data/raw/tomato_final/
+data/processed/tomato_final/
+data/processed/tomato_segment_dataset/
 
-notebooks/.ipynb_checkpoints/
+# Modèles entraînés
+models/
 
-__pycache__/
-*.pyc
-.pytest_cache/
-.ruff_cache/
+# Sorties
+outputs/
 
-# Données brutes
-data/raw/bsv_pdf/
+# Tests
+tests/__pycache__/
+tests/fixtures/
+
+# Documentation générée
+docs/rapport_avancement/*.pdf
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Secrets
+*key*.txt
+*clés*.txt
