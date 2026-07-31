@@ -43,6 +43,8 @@ data/raw/meteo/pest-diagnostic/
 data/raw/meteo/tables_de_liaison/*.csv
 !data/raw/meteo/tables_de_liaison/README.md
 
+data/raw/moteur/bsv_pdf/
+
 # Logs
 
 *.log
@@ -53,6 +55,10 @@ data/raw/meteo/tables_de_liaison/*.csv
 
 .DS_Store
 desktop.ini
+
+# model
+
+models/
 
 # Secrets
 
