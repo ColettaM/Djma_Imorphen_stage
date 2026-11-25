@@ -7,9 +7,8 @@ L'objectif du projet est d'explorer et de développer des outils basés sur les 
 Le projet combine plusieurs composantes de data science et d'apprentissage automatique :
 - collecte et analyse de jeux de données publics liés aux maladies des plantes
 - validation sémantique des diagnostics par Inférence en Langage Naturel (NLI)
-- développement de modèles de vision par ordinateur pour la détection des maladies des plantes
-- intégration de données environnementales (sol, météo, connaissances botaniques)
-- exploration d'agents conversationnels pour l'assistance au jardinage
+- classification et segmentation d’images de plantes
+- mise en relation des prédictions du modèle avec les bulletins de santé du végétal (BSV)
 ---
 ## Composantes Principales
 ### 1. Collecte de Jeux de Données sur les Maladies des Plantes
@@ -20,19 +19,11 @@ Exploration de modèles d'Inférence en Langage Naturel (NLI) pour valider les d
 - des descriptions expertes des maladies des plantes
 - des descriptions générées par des modèles d'IA
 Pipeline de validation proposé :
-​```text
+```text
 Image → Modèle de Vision → Description → Validation NLI → Décision
-​```
-### 3. Vision par Ordinateur pour la Détection des Maladies des Plantes
-Test et évaluation de modèles d'apprentissage profond pour la détection des maladies des plantes à partir d'images, en utilisant des jeux de données publics.
-Les tâches possibles comprennent :
-- classification d'images
-- détection d'objets
-- segmentation d'images
-### 4. Données sur le Sol et l'Environnement
-Collecte et analyse de données locales sur le sol et l'environnement pour proposer des conseils de jardinage adaptés à chaque zone géographique.
-### 5. Assistant de Jardinage Conversationnel
-Exploration d'agents conversationnels capables de fournir des conseils de jardinage en s'appuyant sur les connaissances botaniques, les données environnementales et les modèles d'IA.
+```
+### 3. Vision par ordinateur
+Test et évaluation d’approches de classification et de segmentation d’images pour le diagnostic des maladies des plantes, à partir de jeux de données publics.
 
 ---
 
@@ -45,7 +36,7 @@ Djma_internship/
 ├── tests/     : tests unitaires
 ├── docs/      : documentation
 ├── data/      : données (raw, données brutes et processed, données transformées)
-├── results/   : sorties (images, métriques)
+├── outputs/   : sorties (images, métriques)
 ├── ...
 └── README.md
 ```
@@ -53,7 +44,17 @@ Djma_internship/
 
 ## Utilisation
 
-À compléter au fur et à mesure du développement.
+- **Classification et segmentation.** Consulte les [notebooks de classification](notebooks/classification_tomato/) et les [scripts d’exécution](scripts/).
+- **Validation sémantique.** Consulte les [notebooks NLI](notebooks/nli/).
+- **Phase 3 BSV.** Le moteur confronte les prédictions du modèle aux informations des bulletins de santé du végétal. La [documentation de la phase 3](docs/moteur/phase3_moteur.md) détaille les dépendances, les données et les fichiers du modèle nécessaires.
+
+Depuis la racine, après installation des dépendances de la phase 3, tu peux simuler les étapes avec :
+
+```bash
+python src/moteur/run_pipeline.py --dry-run
+```
+
+Les [notebooks de la phase 3](notebooks/moteur/) servent à analyser les sorties du moteur.
 
 ---
 
