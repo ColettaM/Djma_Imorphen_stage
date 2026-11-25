@@ -1,0 +1,6 @@
+{
+  "expected_images": 3761,
+  "seed": 42,
+  "top_k": 3,
+  "max_bulletin_age_days": 14
+}

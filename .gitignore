@@ -66,3 +66,19 @@ models/
 *secret*.txt
 *clés*.txt
 *clé*.txt
+
+# Environnement et fichiers générés par la phase 3
+env/
+.dvc/cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+tmp/
+.tmp_tests/
+data/raw/tomato_final/
+outputs/*
+!outputs/.gitignore
+!outputs/*.dvc
+tests/fixtures/
+Thumbs.db

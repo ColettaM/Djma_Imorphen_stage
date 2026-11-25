@@ -1,0 +1,13 @@
+﻿classe_dataset;cultures_concernées;nom_fr;agent;type;synonymes_bsv;hôtes
+tomato_late_blight;tomate;Mildiou;Phytophthora infestans;maladie;"mildiou;mildiou de la tomate;mildiou pomme de terre;phytophthora infestans; phytophthora; mildiou sur tomate";"tomate;pomme de terre"
+tomato_early_blight;tomate;Alternariose;"Alternaria solani (syn. A. tomatophila); A. solani";maladie;"alternariose;alternaria; alternaria solani; A. solani; alternaria spp,";"tomate;pomme de terre;aubergine"
+tomato_septoria_leaf_spot;tomate;Septoriose;Septoria lycopersici;maladie;"septoriose;taches septoriennes; septoria lycopersici; septoria; taches de septoriose";tomate
+tomato_leaf_mold;tomate;Cladosporiose;Passalora fulva;maladie;"cladosporiose; moisissure des feuilles; passalora fulva; fulvia fulva; passalora; moisissure olive; cladosporium fulvum";tomate
+tomato_target_spot;tomate;Corynesporiose;Corynespora cassiicola;maladie;"corynesporiose; target spot; tache cible; corynespora; corynespora cassiicola";"tomate;concombre;aubergine"
+tomato_verticulium_wilt;tomate;Verticilliose;Verticillium dahliae;maladie;"verticilliose; flétrissement verticillien; verticillium; verticillium dahliae; flétrissement vasculaire";"tomate;pomme de terre;aubergine;fraisier"
+tomato_bacterial_spot;tomate;Taches bactériennes;Xanthomonas spp.;maladie;"taches bactériennes;bactériose;xanthomonas;xanthomonas spp.; xanthomonas;maladie bactérienne;taches bactériennes de la tomate";"tomate;poivron"
+tomato_mosaic_virus;tomate;Mosaïque de la tomate;Tomato mosaic virus (ToMV);maladie;"mosaïque;virus de la mosaïque;tomato mosaic virus";"tomate;poivron"
+tomato_yellow_leaf_curl_virus;tomate;Virus des feuilles jaunes en cuillère;Tomato yellow leaf curl virus (TYLCV);maladie;"tylcv; virus des feuilles jaunes en cuillère; virus des feuilles jaunes en cuillère de la tomate; yellow leaf curl; Tomato Yellow Leaf Curl Virus; TYLCV; jaunisse en cuillère; maladie des feuilles jaunes en cuillère";tomate
+tomato_spider_mites_two_spotted_spider_mite;tomate;Araignée rouge à deux points;Tetranychus urticae;ravageur;"araignée rouge;acariens;tétranyque;tetranychus urticae;araignée rouge;araignée rouge à deux points;tétranyque;tétranyques;tétranyque à deux points;tétranyque tisserand;tetranychus;Tetranychus urticae";"tomate;concombre;haricot;fraisier"
+tomato_leaf_blight;tomate;Brûlure foliaire;indéterminé;maladie;"brûlure foliaire;leaf blight;nécrose foliaire";tomate
+tomato_healthy;tomate;Plante saine;sain;sain (hors logique);"sain;absence de symptômes;aucune maladie";tomate
